@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'Passion One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Passion One'), local('PassionOne-Regular'),
+    url('../fonts/Passion_One/PassionOne-Regular.eot?#') format('eot'),
+    url('../fonts/Passion_One/PassionOne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Passion One';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Passion One'), local('PassionOne-Bold'),
+    url('../fonts/Passion_One/PassionOne-Bold.eot?#') format('eot'),
+    url('../fonts/Passion_One/PassionOne-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Passion One';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Passion One'), local('PassionOne-Black'),
+    url('../fonts/Passion_One/PassionOne-Black.eot?#') format('eot'),
+    url('../fonts/Passion_One/PassionOne-Black.ttf') format('truetype');
+}
