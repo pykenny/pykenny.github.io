@@ -1,4 +1,4 @@
-Sitemap: https://pykenny.github.io/sitemapindex.xml
+Sitemap: https://pyhsieh.net/sitemapindex.xml
 
 User-Agent: *
-Host: pykenny.github.io
+Host: pyhsieh.net

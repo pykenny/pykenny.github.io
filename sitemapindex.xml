@@ -6,39 +6,39 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
-  <loc>https://pykenny.github.io/categories/devlog.xml</loc>
-  <lastmod>2025-05-17T14:01:00Z</lastmod>
+  <loc>https://pyhsieh.net/categories/devlog.xml</loc>
+  <lastmod>2025-05-18T07:05:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://pykenny.github.io/categories/miscellaneous.xml</loc>
-  <lastmod>2025-05-17T14:01:00Z</lastmod>
+  <loc>https://pyhsieh.net/categories/miscellaneous.xml</loc>
+  <lastmod>2025-05-18T07:05:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://pykenny.github.io/galleries/rss.xml</loc>
-  <lastmod>2025-05-17T15:04:00Z</lastmod>
+  <loc>https://pyhsieh.net/galleries/rss.xml</loc>
+  <lastmod>2025-05-18T07:05:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://pykenny.github.io/rss.xml</loc>
-  <lastmod>2025-05-17T14:01:00Z</lastmod>
+  <loc>https://pyhsieh.net/rss.xml</loc>
+  <lastmod>2025-05-18T07:05:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://pykenny.github.io/sitemap.xml</loc>
-  <lastmod>2025-05-17T15:04:00Z</lastmod>
+  <loc>https://pyhsieh.net/sitemap.xml</loc>
+  <lastmod>2025-05-18T07:05:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://pykenny.github.io/zh_tw/categories/devlog.xml</loc>
+  <loc>https://pyhsieh.net/zh_tw/categories/devlog.xml</loc>
   <lastmod>2025-05-17T08:20:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://pykenny.github.io/zh_tw/categories/miscellaneous.xml</loc>
+  <loc>https://pyhsieh.net/zh_tw/categories/miscellaneous.xml</loc>
   <lastmod>2025-05-17T08:20:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://pykenny.github.io/zh_tw/galleries/rss.xml</loc>
+  <loc>https://pyhsieh.net/zh_tw/galleries/rss.xml</loc>
   <lastmod>2025-05-17T08:11:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://pykenny.github.io/zh_tw/rss.xml</loc>
+  <loc>https://pyhsieh.net/zh_tw/rss.xml</loc>
   <lastmod>2025-05-17T08:20:00Z</lastmod>
  </sitemap>
 </sitemapindex>
