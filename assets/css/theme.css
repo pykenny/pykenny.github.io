@@ -287,8 +287,9 @@ ul.breadcrumb li {
     padding: 0 1em 0 0;
     margin: 0;
 }
-pre {
+.code pre {
     overflow-x: auto;
+    white-space: pre;
 }
 
 @media (max-width: 480px) {

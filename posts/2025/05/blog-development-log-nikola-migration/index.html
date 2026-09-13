@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Po-Yu Hsieh">
+<title>Blog Development Log (1) - Migrate to Nikola for | Layperson's Notes</title>
+<link href="../../../../assets/css/all.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="icon" href="../../../../favicons/favicon.ico" sizes="64x64">
+<link rel="icon" href="../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" href="../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" href="../../../../favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" href="../../../../favicons/favicon-128.png" sizes="128x128">
+<link rel="icon" href="../../../../favicons/favicon-196x196.png" sizes="196x196">
+</head>
+<body>
+    <div id="wrp">
+        <div id="cont">
+            <div id="page">
+                <header><h1>
+                        <a href="https://pyhsieh.net/" title="Layperson's Notes" rel="home">Layperson's Notes</a>
+                    </h1>
+                    <h2>Slightly better than reinventing the wheels ⚙</h2>
+                </header><div id="body">
+                    <nav><ul>
+<li><a href="https://pyhsieh.net/" title="Home" rel="home"><i class="fa fa-fw fa-home"></i></a></li>
+                            <li><a href="https://pyhsieh.net/categories/" title="Tags"><i class="fa fa-fw fa-tags"></i></a></li>
+                            <li><a href="https://pyhsieh.net/rss.xml" title="RSS feed"><i class="fa fa-fw fa-rss"></i></a></li>
+                            <li><a href="https://pyhsieh.net/pages/about/" title="About"><i class="fa fa-fw fa-user"></i></a></li>
+                            <li><a href="https://github.com/pykenny" title="My GitHub account"><i class="fa fa-fw fa-github"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/po-yu-hsieh/" title="My Linkedin profile"><i class="fa fa-fw fa-linkedin-square"></i></a></li>
+                        </ul></nav><div id="content">
+    <article class="post-text"><div class="h-entry" itemscope="itemscope" itemtype="http://schema.org/Article">
+        <h1 class="p-name" itemprop="headline name">Blog Development Log (1) - Migrate to Nikola for</h1>
+
+    <small>
+        Posted: <time class="published dt-published" datetime="2025-05-18T17:00:00+08:00" itemprop="datePublished">2025-05-18 17:00</time>
+		          |  
+            <a class="tag" href="../../../../categories/devlog/"><span class="badge badge-info">DevLog</span></a>
+            <a class="tag" href="../../../../categories/nikolablog/"><span class="badge badge-info">NikolaBlog</span></a>
+
+    </small>
+    <div class="e-content" itemprop="articleBody text">
+    <p>Here are some notes about migration process, and.</p>
+<!-- TEASER_END -->
+<section id="before-the-migration"><h2>Before the Migration</h2>
+<p>The original was a bit wild -- setting up server that serves blog content with some of the contents
+like post list and article dynamically rendered as requested.</p>
+<p>The project covered from previous work experience, and it ends up with <a class="reference external" href="https://www.djangoproject.com">Django</a>
+as a backend service that manages posts and image assets, and a <a class="reference external" href="https://expressjs.com">express</a> service that provides
+web content and renderings. Plus a website-based editor that allows me to preview.</p>
+<p>provided, including:</p>
+<ul class="simple">
+<li><p>Managing a web service on cloud service provider (AWS)</p></li>
+<li><p>Configuration of web server proxy like <a class="reference external" href="https://nginx.org">Nginx</a></p></li>
+<li><p>Manage static assets like images, fonts, and favicon</p></li>
+<li><p>Get familiar with frontend assets bundler like <a class="reference external" href="https://webpack.js.org">webpack</a> and <a class="reference external" href="https://parceljs.org">Parcel</a></p></li>
+</ul>
+<p>And the whole job involves things that gets more complicated than estimated:</p>
+<ul class="simple">
+<li><p>Design mechanism that enables the editor to renders preview in realtime, interacts with local file system, bundle the post and image into somethings , etc.</p></li>
+</ul>
+<p>Adding additional to markdown parser
+Twisting code rendering library to support layout, code copying, etc.</p>
+</section><section id="pick-the-tools"><h2>Pick the tools</h2>
+<p>Did not took much time making decision. Blog instead of fancy profile site, so I took a peek on top of <a class="reference external" href="https://jamstack.org/generators/">Jamstack</a>'s list, and chose a blog-oriented builder. It also provides community support on Docker service, because at the time of writing I'm having trouble with building runtime environment and libraries on my MacOS machine (which is also part of the reason why not choosing popular choices like <a class="reference external" href="https://jekyllrb.com">Jekyll</a>).</p>
+</section><section id="initial-attempts"><h2>Initial Attempts</h2>
+<p>TBD</p>
+</section><section id="time-to-turn-off-the-machine"><h2>Time to Turn off the Machine</h2>
+<ul class="simple">
+<li><p>Turn off VCP networks</p></li>
+<li><p>Turn off and delete EC2 instance that runs the server</p></li>
+<li><p>Update Route 53 DNS mappings from internal network to GitHub's domain</p></li>
+<li><p>Set up custom domain for GitHub Page so that GitHub will route the custom domain (pyhsieh.net) to (pykenny.github.io).</p></li>
+</ul></section><section id="some-pending-works"><h2>Some Pending Works</h2>
+<ul class="simple">
+<li><p>Check out between</p></li>
+<li><p>Organize CSS rules because</p></li>
+<li><p>Layout CSS for the post content (currently using)</p></li>
+<li><p>More options in</p></li>
+<li><p>Implement some plugins, such as calendar view</p></li>
+</ul></section>
+</div>
+    </div>
+    
+                <div data-title="" id="utterances-thread"></div>
+        <script src="https://utteranc.es/client.js" repo="pykenny/pykenny.github.io" issue-term="title" label="Discussion" theme="gruvbox-dark"></script></article>
+</div>
+                </div>
+                <div id="ftr">
+                </div>
+            </div>
+        </div>
+    </div>
+	<footer><small>Contents © 2025         <a href="mailto:soft.desk9067@fastmail.com">Po-Yu Hsieh</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </small>
+	</footer>
+</body>
+</html>

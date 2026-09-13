@@ -7,23 +7,35 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://pyhsieh.net/</loc>
-  <lastmod>2025-05-18T07:03:00Z</lastmod>
+  <lastmod>2026-09-13T03:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://pyhsieh.net/2021/</loc>
   <lastmod>2025-05-18T07:03:00Z</lastmod>
  </url>
  <url>
+  <loc>https://pyhsieh.net/2026/</loc>
+  <lastmod>2026-09-13T03:40:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://pyhsieh.net/archive.html</loc>
-  <lastmod>2025-05-18T07:05:00Z</lastmod>
+  <lastmod>2026-09-13T03:43:00Z</lastmod>
  </url>
  <url>
   <loc>https://pyhsieh.net/categories/</loc>
-  <lastmod>2025-05-18T07:03:00Z</lastmod>
+  <lastmod>2026-09-13T03:40:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://pyhsieh.net/categories/dataengineering/</loc>
+  <lastmod>2026-09-13T03:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://pyhsieh.net/categories/devlog/</loc>
   <lastmod>2025-05-18T07:03:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://pyhsieh.net/categories/fileformat/</loc>
+  <lastmod>2026-09-13T03:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://pyhsieh.net/categories/miscellaneous/</loc>
@@ -48,6 +60,14 @@
  <url>
   <loc>https://pyhsieh.net/posts/2021/03/how-to-make-money/</loc>
   <lastmod>2025-05-17T08:04:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://pyhsieh.net/posts/2025/05/blog-development-log-nikola-migration/</loc>
+  <lastmod>2025-05-18T09:30:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://pyhsieh.net/posts/2026/09/data-exchange-csv-001/</loc>
+  <lastmod>2026-09-13T03:40:00Z</lastmod>
  </url>
  <url>
   <loc>https://pyhsieh.net/zh_tw/</loc>
