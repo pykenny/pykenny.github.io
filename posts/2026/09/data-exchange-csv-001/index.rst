@@ -46,7 +46,7 @@ Its simplicity is clear from the example above: column cells are separated by co
 However, the simplicity also comes with tradeoffs:
 
 1. Compared to bytes representation, plain text representation consumes significantly more disk space and network bandwith (especially for numeric and date/time values).
-2. Every cell is stored as raw text, and CSV itself doesn't store any data type information ("Which type of `order_id` column is it? Integer, or string?"). In order to ensure correctness, sender and receiver must agree on the same schema implicitly.
+2. Every cell is stored as raw text, and CSV itself doesn't store any data type information ("Which type of ``order_id`` column is it? Integer, or string?"). In order to ensure correctness, sender and receiver must agree on the same schema implicitly.
 3. CSV can not represent hierarchical or nested data (arrays, records, sets, etc.) natively.
 
 
@@ -209,7 +209,7 @@ However, if we further look into DataFrame metadata:
     dtypes: float64(1), int64(1), str(3)
     memory usage: 292.0 bytes
 
-We'll notice that While ``order_id`` and ``total_amounts`` are correctly parsed into numeric types, and descriptive fields remain strings, ``order_date`` column is not converted to datetime type as expected.
+We'll notice that while ``order_id`` (integer) and ``total_amounts`` (float-point number) are correctly parsed into numeric types, and descriptive fields remain strings, ``order_date`` column (using ``YEAR-MONTH-DAY/YYYY-MM-DD`` format) is not converted to datetime type as expected.
 That does not mean we should abandon Pandas and look for alternative solutions right now. Pandas just need an extra hint to handle these columns automatically:
 
 .. code-block:: python
@@ -233,6 +233,6 @@ That does not mean we should abandon Pandas and look for alternative solutions r
     memory usage: 292.0 bytes
 
 Now Pandas correctly converts ``order_date`` column into a proper time data type!
-But it is important to understand this kind of automated process based highly relies on Pandas' internal parser to recognize date patterns.
+But it is important to understand this kind of automated process highly relies on Pandas' internal parser to recognize date patterns.
 While production datasets should follow `ISO standards <https://en.wikipedia.org/wiki/ISO_8601>`_ (which elimiate ambiguity, guarantee correct sorting, and preserve readability), real world data is full of exceptions. Developers frequently encounter non-standard formats using different unit separators, localized names, and special unit ordering (e.g. 31st Mar, 2023).
 Finally, data type parsing depends on establishing serialization and derialization protocol between provider and receiver, which applies to all non-string data types.
