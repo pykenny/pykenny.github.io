@@ -222,18 +222,29 @@ footer small a
 	text-decoration: none;
 }
 
-ul.pager {
+.post-navigation {
     margin: 40px 0 0 0;
+    display: flex;
 }
-ul.pager li {
-    margin: 0;
-    padding: 0;
-    background: transparent;
+.post-navigation-link {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
-ul.pager .next {
-    float: right;
-    width: 300px;
+.post-navigation-link .navigation-prev {
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.post-navigation-link .navigation-next {
+    display: flex;
     text-align: right;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.post-navigation-link .navigation-link {
+    display: flex;
 }
 
 article {

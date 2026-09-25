@@ -1,50 +1,49 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="Po-Yu Hsieh">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Po-Yu Hsieh" name="author"/>
 <title>Data Exchange Format (1) - Working with CSV, Part 1 | Layperson's Notes</title>
-<link href="../../../../assets/css/all.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/all.css" rel="stylesheet" type="text/css"/>
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-    <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
-<link rel="icon" href="../../../../favicons/favicon.ico" sizes="64x64">
-<link rel="icon" href="../../../../favicons/favicon-16x16.png" sizes="16x16">
-<link rel="icon" href="../../../../favicons/favicon-32x32.png" sizes="32x32">
-<link rel="icon" href="../../../../favicons/favicon-96x96.png" sizes="96x96">
-<link rel="icon" href="../../../../favicons/favicon-128.png" sizes="128x128">
-<link rel="icon" href="../../../../favicons/favicon-196x196.png" sizes="196x196">
+    <![endif]--><link href="../../../../rss.xml" rel="alternate" title="RSS" type="application/rss+xml"/>
+<link href="../../../../favicons/favicon.ico" rel="icon" sizes="64x64"/>
+<link href="../../../../favicons/favicon-16x16.png" rel="icon" sizes="16x16"/>
+<link href="../../../../favicons/favicon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="../../../../favicons/favicon-96x96.png" rel="icon" sizes="96x96"/>
+<link href="../../../../favicons/favicon-128.png" rel="icon" sizes="128x128"/>
+<link href="../../../../favicons/favicon-196x196.png" rel="icon" sizes="196x196"/>
 </head>
 <body>
-    <div id="wrp">
-        <div id="cont">
-            <div id="page">
-                <header><h1>
-                        <a href="https://pyhsieh.net/" title="Layperson's Notes" rel="home">Layperson's Notes</a>
-                    </h1>
-                    <h2>Slightly better than reinventing the wheels ⚙</h2>
-                </header><div id="body">
-                    <nav><ul>
-<li><a href="https://pyhsieh.net/" title="Home" rel="home"><i class="fa fa-fw fa-home"></i></a></li>
-                            <li><a href="https://pyhsieh.net/categories/" title="Tags"><i class="fa fa-fw fa-tags"></i></a></li>
-                            <li><a href="https://pyhsieh.net/rss.xml" title="RSS feed"><i class="fa fa-fw fa-rss"></i></a></li>
-                            <li><a href="https://pyhsieh.net/pages/about/" title="About"><i class="fa fa-fw fa-user"></i></a></li>
-                            <li><a href="https://github.com/pykenny" title="My GitHub account"><i class="fa fa-fw fa-github"></i></a></li>
-                            <li><a href="https://www.linkedin.com/in/po-yu-hsieh/" title="My Linkedin profile"><i class="fa fa-fw fa-linkedin-square"></i></a></li>
-                        </ul></nav><div id="content">
-    <article class="post-text"><div class="h-entry" itemscope="itemscope" itemtype="http://schema.org/Article">
-        <h1 class="p-name" itemprop="headline name">Data Exchange Format (1) - Working with CSV, Part 1</h1>
-
-    <small>
+<div id="wrp">
+<div id="cont">
+<div id="page">
+<header><h1>
+<a href="../../../../" rel="home" title="Layperson's Notes">Layperson's Notes</a>
+</h1>
+<h2>Slightly better than reinventing the wheels ⚙</h2>
+</header><div id="body">
+<nav><ul>
+<li><a href="../../../../" rel="home" title="Home"><i class="fa fa-fw fa-home"></i></a></li>
+<li><a href="../../../../categories/" title="Tags"><i class="fa fa-fw fa-tags"></i></a></li>
+<li><a href="../../../../rss.xml" title="RSS feed"><i class="fa fa-fw fa-rss"></i></a></li>
+<li><a href="../../../../pages/about/" title="About"><i class="fa fa-fw fa-user"></i></a></li>
+<li><a href="https://github.com/pykenny" rel="noopener noreferrer" target="_blank" title="My GitHub account"><i class="fa fa-fw fa-github"></i></a></li>
+<li><a href="https://www.linkedin.com/in/po-yu-hsieh/" rel="noopener noreferrer" target="_blank" title="My Linkedin profile"><i class="fa fa-fw fa-linkedin-square"></i></a></li>
+</ul></nav><div id="content">
+<article class="post-text"><div class="h-entry" itemscope="itemscope" itemtype="http://schema.org/Article">
+<h1 class="p-name" itemprop="headline name">Data Exchange Format (1) - Working with CSV, Part 1</h1>
+<small>
         Posted: <time class="published dt-published" datetime="2026-09-13T00:00:00+08:00" itemprop="datePublished">2026-09-13 00:00</time>
 		          |  
             <a class="tag" href="../../../../categories/dataengineering/"><span class="badge badge-info">DataEngineering</span></a>
-            <a class="tag" href="../../../../categories/fileformat/"><span class="badge badge-info">FileFormat</span></a>
-
-    </small>
-    <div class="e-content" itemprop="articleBody text">
-    <p>CSV (<strong>C</strong>omma-<strong>S</strong>eparated <strong>V</strong>alues) files are common to anyone working with tabular data, no matter if those data are called "tables" or "spreadsheets" in conversations or your computer.
+<a class="tag" href="../../../../categories/fileformat/"><span class="badge badge-info">FileFormat</span></a>
+</small>
+<div class="e-content" itemprop="articleBody text">
+<p>CSV (<strong>C</strong>omma-<strong>S</strong>eparated <strong>V</strong>alues) files are common to anyone working with tabular data, no matter if those data are called "tables" or "spreadsheets" in conversations or your computer.
 If you work in information technology industry, you've likely encountered them repeatedly in class assignments, personal projects, or data-centered tasks in the workplace, from fundamental data engineering to analytics applications.</p>
 <!-- TEASER_END -->
 <p>Because sample CSV files on public platforms usually follow standard formatting rules that are commonly assumed, popular libraries and commercial tools parse them seamlessly.
@@ -54,14 +53,14 @@ Capricious input make your default settings fail, throwing unexpected errors, an
 These edge cases requires careful handling - especially when you are the one who's responsible for writing up CSVs (through machine, programically).</p>
 <p>This series will provide an overview on (perhaps "modern"?) CSV format, covering core configurations needed to process a CSV file accurately, along with reasons behind those settings.
 To demonstrate these concepts, I will use Python's built-in <code class="docutils literal">csv</code> module for the code examples. Even if your case relies on diffent languages or tools, the underlying concepts remains the same, and you will find equivalent settings in most of them.</p>
-<hr class="docutils">
+<hr class="docutils"/>
 <section id="benefits-and-limitations-of-csv"><h2>Benefits and Limitations of CSV</h2>
 <p>Why use CSV instead of other formats like Excel Workbook or XML?</p>
-<div class="code"><pre class="code text"><a id="rest_code_e15333c2a75947c48fc6ff066a48e71e-1" name="rest_code_e15333c2a75947c48fc6ff066a48e71e-1" href="#rest_code_e15333c2a75947c48fc6ff066a48e71e-1"></a>order_id,customer_name,order_date,total_amount,status
-<a id="rest_code_e15333c2a75947c48fc6ff066a48e71e-2" name="rest_code_e15333c2a75947c48fc6ff066a48e71e-2" href="#rest_code_e15333c2a75947c48fc6ff066a48e71e-2"></a>1001,Alice Smith,2026-03-15,129.99,Completed
-<a id="rest_code_e15333c2a75947c48fc6ff066a48e71e-3" name="rest_code_e15333c2a75947c48fc6ff066a48e71e-3" href="#rest_code_e15333c2a75947c48fc6ff066a48e71e-3"></a>1002,Bob Jones,2026-03-16,45.50,Processing
-<a id="rest_code_e15333c2a75947c48fc6ff066a48e71e-4" name="rest_code_e15333c2a75947c48fc6ff066a48e71e-4" href="#rest_code_e15333c2a75947c48fc6ff066a48e71e-4"></a>1003,Charlie Brown,2026-03-16,89.00,Shipped
-<a id="rest_code_e15333c2a75947c48fc6ff066a48e71e-5" name="rest_code_e15333c2a75947c48fc6ff066a48e71e-5" href="#rest_code_e15333c2a75947c48fc6ff066a48e71e-5"></a>1004,Diana Prince,2026-03-17,210.75,Completed
+<div class="code"><pre class="code text"><a href="#rest_code_e15333c2a75947c48fc6ff066a48e71e-1" id="rest_code_e15333c2a75947c48fc6ff066a48e71e-1" name="rest_code_e15333c2a75947c48fc6ff066a48e71e-1"></a>order_id,customer_name,order_date,total_amount,status
+<a href="#rest_code_e15333c2a75947c48fc6ff066a48e71e-2" id="rest_code_e15333c2a75947c48fc6ff066a48e71e-2" name="rest_code_e15333c2a75947c48fc6ff066a48e71e-2"></a>1001,Alice Smith,2026-03-15,129.99,Completed
+<a href="#rest_code_e15333c2a75947c48fc6ff066a48e71e-3" id="rest_code_e15333c2a75947c48fc6ff066a48e71e-3" name="rest_code_e15333c2a75947c48fc6ff066a48e71e-3"></a>1002,Bob Jones,2026-03-16,45.50,Processing
+<a href="#rest_code_e15333c2a75947c48fc6ff066a48e71e-4" id="rest_code_e15333c2a75947c48fc6ff066a48e71e-4" name="rest_code_e15333c2a75947c48fc6ff066a48e71e-4"></a>1003,Charlie Brown,2026-03-16,89.00,Shipped
+<a href="#rest_code_e15333c2a75947c48fc6ff066a48e71e-5" id="rest_code_e15333c2a75947c48fc6ff066a48e71e-5" name="rest_code_e15333c2a75947c48fc6ff066a48e71e-5"></a>1004,Diana Prince,2026-03-17,210.75,Completed
 </pre></div>
 <p>Its simplicity is clear from the example above: column cells are separated by commas (<cite>,</cite>), and row boundaries are defined by line breaks. Such design provides several advantages:</p>
 <ol class="arabic simple">
@@ -77,33 +76,33 @@ To demonstrate these concepts, I will use Python's built-in <code class="docutil
 </ol></section><section id="header-and-data-formatting"><h2>Header and Data Formatting</h2>
 <p>Even when processing files that follow standard convensions, most developers encounter challenge of converting text columns into appropriate data types.
 This example code below shows how Python's native <code class="docutils literal">csv.reader</code> function parses our example file:</p>
-<div class="code"><pre class="code python"><a id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-1" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-1" href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">csv</span><span class="w"> </span><span class="kn">import</span> <span class="n">reader</span>
-<a id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-2" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-2" href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-2"></a>
-<a id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-3" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-3" href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"./example.csv"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
-<a id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-4" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-4" href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-4"></a>    <span class="n">csv_reader</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>  <span class="c1"># Apply default parser settings</span>
-<a id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-5" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-5" href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-5"></a>
-<a id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-6" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-6" href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-6"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_reader</span><span class="p">:</span>                           <span class="c1"># For each row,</span>
-<a id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-7" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-7" href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-7"></a>        <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>                             <span class="c1"># and for each column cell,</span>
-<a id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-8" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-8" href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-8"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cell</span><span class="si">}</span><span class="s2">, of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>  <span class="c1"># print out stringified value and identify type</span>
-<a id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-9" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-9" href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-9"></a>
-<a id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-10" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-10" href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-10"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"==="</span><span class="p">)</span>
+<div class="code"><pre class="code python"><a href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-1" id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-1" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">csv</span><span class="w"> </span><span class="kn">import</span> <span class="n">reader</span>
+<a href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-2" id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-2" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-2"></a>
+<a href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-3" id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-3" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"./example.csv"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+<a href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-4" id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-4" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-4"></a>    <span class="n">csv_reader</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>  <span class="c1"># Apply default parser settings</span>
+<a href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-5" id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-5" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-5"></a>
+<a href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-6" id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-6" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-6"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_reader</span><span class="p">:</span>                           <span class="c1"># For each row,</span>
+<a href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-7" id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-7" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-7"></a>        <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>                             <span class="c1"># and for each column cell,</span>
+<a href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-8" id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-8" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-8"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cell</span><span class="si">}</span><span class="s2">, of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>  <span class="c1"># print out stringified value and identify type</span>
+<a href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-9" id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-9" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-9"></a>
+<a href="#rest_code_a8c3ade5677d4912a6fde79b85d6b19e-10" id="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-10" name="rest_code_a8c3ade5677d4912a6fde79b85d6b19e-10"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"==="</span><span class="p">)</span>
 </pre></div>
 <p>Output:</p>
-<div class="code"><pre class="code text"><a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-1" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-1" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-1"></a>order_id, of type &lt;class 'str'&gt;
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-2" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-2" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-2"></a>customer_name, of type &lt;class 'str'&gt;
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-3" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-3" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-3"></a>order_date, of type &lt;class 'str'&gt;
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-4" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-4" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-4"></a>total_amount, of type &lt;class 'str'&gt;
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-5" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-5" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-5"></a>status, of type &lt;class 'str'&gt;
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-6" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-6" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-6"></a>===
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-7" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-7" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-7"></a>1001, of type &lt;class 'str'&gt;
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-8" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-8" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-8"></a>Alice Smith, of type &lt;class 'str'&gt;
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-9" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-9" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-9"></a>2026-03-15, of type &lt;class 'str'&gt;
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-10" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-10" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-10"></a>129.99, of type &lt;class 'str'&gt;
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-11" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-11" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-11"></a>Completed, of type &lt;class 'str'&gt;
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-12" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-12" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-12"></a>===
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-13" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-13" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-13"></a>1002, of type &lt;class 'str'&gt;
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-14" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-14" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-14"></a>Bob Jones, of type &lt;class 'str'&gt;
-<a id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-15" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-15" href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-15"></a>...
+<div class="code"><pre class="code text"><a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-1" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-1" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-1"></a>order_id, of type &lt;class 'str'&gt;
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-2" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-2" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-2"></a>customer_name, of type &lt;class 'str'&gt;
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-3" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-3" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-3"></a>order_date, of type &lt;class 'str'&gt;
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-4" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-4" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-4"></a>total_amount, of type &lt;class 'str'&gt;
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-5" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-5" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-5"></a>status, of type &lt;class 'str'&gt;
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-6" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-6" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-6"></a>===
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-7" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-7" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-7"></a>1001, of type &lt;class 'str'&gt;
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-8" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-8" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-8"></a>Alice Smith, of type &lt;class 'str'&gt;
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-9" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-9" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-9"></a>2026-03-15, of type &lt;class 'str'&gt;
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-10" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-10" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-10"></a>129.99, of type &lt;class 'str'&gt;
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-11" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-11" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-11"></a>Completed, of type &lt;class 'str'&gt;
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-12" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-12" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-12"></a>===
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-13" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-13" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-13"></a>1002, of type &lt;class 'str'&gt;
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-14" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-14" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-14"></a>Bob Jones, of type &lt;class 'str'&gt;
+<a href="#rest_code_e7921f989e224a339c3cf8c3d8d9d830-15" id="rest_code_e7921f989e224a339c3cf8c3d8d9d830-15" name="rest_code_e7921f989e224a339c3cf8c3d8d9d830-15"></a>...
 </pre></div>
 <p>The output itself points out two common pitfalls when parsing CSV contents:</p>
 <ul class="simple">
@@ -112,137 +111,141 @@ This example code below shows how Python's native <code class="docutils literal"
 </ul>
 <p>A header row usually appears at the top of CSV data to define number of columns and corresponding title by order.
 Beacuse headers are very common, most tools and libraries provide options to skip header rows, while some even offer utilities using heuristics to detect presence of headers:</p>
-<div class="code"><pre class="code python"><a id="rest_code_e3d39303718c414cbddb552933744a12-1" name="rest_code_e3d39303718c414cbddb552933744a12-1" href="#rest_code_e3d39303718c414cbddb552933744a12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">csv</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sniffer</span>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-2" name="rest_code_e3d39303718c414cbddb552933744a12-2" href="#rest_code_e3d39303718c414cbddb552933744a12-2"></a>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-3" name="rest_code_e3d39303718c414cbddb552933744a12-3" href="#rest_code_e3d39303718c414cbddb552933744a12-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"./example.csv"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-4" name="rest_code_e3d39303718c414cbddb552933744a12-4" href="#rest_code_e3d39303718c414cbddb552933744a12-4"></a>    <span class="n">snf</span> <span class="o">=</span> <span class="n">Sniffer</span><span class="p">()</span>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-5" name="rest_code_e3d39303718c414cbddb552933744a12-5" href="#rest_code_e3d39303718c414cbddb552933744a12-5"></a>    <span class="n">has_header</span> <span class="o">=</span> <span class="n">snf</span><span class="o">.</span><span class="n">has_header</span><span class="p">(</span><span class="n">csv_file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">80</span><span class="p">))</span>  <span class="c1"># Detect header by sampling</span>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-6" name="rest_code_e3d39303718c414cbddb552933744a12-6" href="#rest_code_e3d39303718c414cbddb552933744a12-6"></a>    <span class="n">csv_file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                                <span class="c1"># Move pointer back to start of file</span>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-7" name="rest_code_e3d39303718c414cbddb552933744a12-7" href="#rest_code_e3d39303718c414cbddb552933744a12-7"></a>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-8" name="rest_code_e3d39303718c414cbddb552933744a12-8" href="#rest_code_e3d39303718c414cbddb552933744a12-8"></a>    <span class="n">csv_reader</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-9" name="rest_code_e3d39303718c414cbddb552933744a12-9" href="#rest_code_e3d39303718c414cbddb552933744a12-9"></a>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-10" name="rest_code_e3d39303718c414cbddb552933744a12-10" href="#rest_code_e3d39303718c414cbddb552933744a12-10"></a>    <span class="k">if</span> <span class="n">has_header</span><span class="p">:</span>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-11" name="rest_code_e3d39303718c414cbddb552933744a12-11" href="#rest_code_e3d39303718c414cbddb552933744a12-11"></a>        <span class="n">_</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">csv_reader</span><span class="p">)</span>  <span class="c1"># Skip the first row when header row exists</span>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-12" name="rest_code_e3d39303718c414cbddb552933744a12-12" href="#rest_code_e3d39303718c414cbddb552933744a12-12"></a>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-13" name="rest_code_e3d39303718c414cbddb552933744a12-13" href="#rest_code_e3d39303718c414cbddb552933744a12-13"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_reader</span><span class="p">:</span>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-14" name="rest_code_e3d39303718c414cbddb552933744a12-14" href="#rest_code_e3d39303718c414cbddb552933744a12-14"></a>        <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-15" name="rest_code_e3d39303718c414cbddb552933744a12-15" href="#rest_code_e3d39303718c414cbddb552933744a12-15"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cell</span><span class="si">}</span><span class="s2">, of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-16" name="rest_code_e3d39303718c414cbddb552933744a12-16" href="#rest_code_e3d39303718c414cbddb552933744a12-16"></a>
-<a id="rest_code_e3d39303718c414cbddb552933744a12-17" name="rest_code_e3d39303718c414cbddb552933744a12-17" href="#rest_code_e3d39303718c414cbddb552933744a12-17"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"==="</span><span class="p">)</span>
+<div class="code"><pre class="code python"><a href="#rest_code_e3d39303718c414cbddb552933744a12-1" id="rest_code_e3d39303718c414cbddb552933744a12-1" name="rest_code_e3d39303718c414cbddb552933744a12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">csv</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sniffer</span>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-2" id="rest_code_e3d39303718c414cbddb552933744a12-2" name="rest_code_e3d39303718c414cbddb552933744a12-2"></a>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-3" id="rest_code_e3d39303718c414cbddb552933744a12-3" name="rest_code_e3d39303718c414cbddb552933744a12-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"./example.csv"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-4" id="rest_code_e3d39303718c414cbddb552933744a12-4" name="rest_code_e3d39303718c414cbddb552933744a12-4"></a>    <span class="n">snf</span> <span class="o">=</span> <span class="n">Sniffer</span><span class="p">()</span>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-5" id="rest_code_e3d39303718c414cbddb552933744a12-5" name="rest_code_e3d39303718c414cbddb552933744a12-5"></a>    <span class="n">has_header</span> <span class="o">=</span> <span class="n">snf</span><span class="o">.</span><span class="n">has_header</span><span class="p">(</span><span class="n">csv_file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">80</span><span class="p">))</span>  <span class="c1"># Detect header by sampling</span>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-6" id="rest_code_e3d39303718c414cbddb552933744a12-6" name="rest_code_e3d39303718c414cbddb552933744a12-6"></a>    <span class="n">csv_file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                                <span class="c1"># Move pointer back to start of file</span>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-7" id="rest_code_e3d39303718c414cbddb552933744a12-7" name="rest_code_e3d39303718c414cbddb552933744a12-7"></a>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-8" id="rest_code_e3d39303718c414cbddb552933744a12-8" name="rest_code_e3d39303718c414cbddb552933744a12-8"></a>    <span class="n">csv_reader</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-9" id="rest_code_e3d39303718c414cbddb552933744a12-9" name="rest_code_e3d39303718c414cbddb552933744a12-9"></a>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-10" id="rest_code_e3d39303718c414cbddb552933744a12-10" name="rest_code_e3d39303718c414cbddb552933744a12-10"></a>    <span class="k">if</span> <span class="n">has_header</span><span class="p">:</span>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-11" id="rest_code_e3d39303718c414cbddb552933744a12-11" name="rest_code_e3d39303718c414cbddb552933744a12-11"></a>        <span class="n">_</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">csv_reader</span><span class="p">)</span>  <span class="c1"># Skip the first row when header row exists</span>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-12" id="rest_code_e3d39303718c414cbddb552933744a12-12" name="rest_code_e3d39303718c414cbddb552933744a12-12"></a>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-13" id="rest_code_e3d39303718c414cbddb552933744a12-13" name="rest_code_e3d39303718c414cbddb552933744a12-13"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_reader</span><span class="p">:</span>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-14" id="rest_code_e3d39303718c414cbddb552933744a12-14" name="rest_code_e3d39303718c414cbddb552933744a12-14"></a>        <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-15" id="rest_code_e3d39303718c414cbddb552933744a12-15" name="rest_code_e3d39303718c414cbddb552933744a12-15"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cell</span><span class="si">}</span><span class="s2">, of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-16" id="rest_code_e3d39303718c414cbddb552933744a12-16" name="rest_code_e3d39303718c414cbddb552933744a12-16"></a>
+<a href="#rest_code_e3d39303718c414cbddb552933744a12-17" id="rest_code_e3d39303718c414cbddb552933744a12-17" name="rest_code_e3d39303718c414cbddb552933744a12-17"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"==="</span><span class="p">)</span>
 </pre></div>
 <p>Output:</p>
-<div class="code"><pre class="code text"><a id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-1" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-1" href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-1"></a>1001, of type &lt;class 'str'&gt;
-<a id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-2" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-2" href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-2"></a>Alice Smith, of type &lt;class 'str'&gt;
-<a id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-3" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-3" href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-3"></a>2026-03-15, of type &lt;class 'str'&gt;
-<a id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-4" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-4" href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-4"></a>129.99, of type &lt;class 'str'&gt;
-<a id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-5" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-5" href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-5"></a>Completed, of type &lt;class 'str'&gt;
-<a id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-6" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-6" href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-6"></a>===
-<a id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-7" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-7" href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-7"></a>1002, of type &lt;class 'str'&gt;
-<a id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-8" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-8" href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-8"></a>Bob Jones, of type &lt;class 'str'&gt;
-<a id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-9" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-9" href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-9"></a>...
+<div class="code"><pre class="code text"><a href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-1" id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-1" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-1"></a>1001, of type &lt;class 'str'&gt;
+<a href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-2" id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-2" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-2"></a>Alice Smith, of type &lt;class 'str'&gt;
+<a href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-3" id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-3" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-3"></a>2026-03-15, of type &lt;class 'str'&gt;
+<a href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-4" id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-4" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-4"></a>129.99, of type &lt;class 'str'&gt;
+<a href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-5" id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-5" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-5"></a>Completed, of type &lt;class 'str'&gt;
+<a href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-6" id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-6" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-6"></a>===
+<a href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-7" id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-7" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-7"></a>1002, of type &lt;class 'str'&gt;
+<a href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-8" id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-8" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-8"></a>Bob Jones, of type &lt;class 'str'&gt;
+<a href="#rest_code_f9039427d5be4bd7965cc377ea5d3dca-9" id="rest_code_f9039427d5be4bd7965cc377ea5d3dca-9" name="rest_code_f9039427d5be4bd7965cc377ea5d3dca-9"></a>...
 </pre></div>
 <p>Python offers <code class="docutils literal">csv.DictReader</code> to simplify file ingestion process, and map data rows into dictionaries (Python <cite>dict</cite> objects):</p>
-<div class="code"><pre class="code python"><a id="rest_code_dc55a614a24242bdabf5f3629acfae84-1" name="rest_code_dc55a614a24242bdabf5f3629acfae84-1" href="#rest_code_dc55a614a24242bdabf5f3629acfae84-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">csv</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictReader</span>
-<a id="rest_code_dc55a614a24242bdabf5f3629acfae84-2" name="rest_code_dc55a614a24242bdabf5f3629acfae84-2" href="#rest_code_dc55a614a24242bdabf5f3629acfae84-2"></a>
-<a id="rest_code_dc55a614a24242bdabf5f3629acfae84-3" name="rest_code_dc55a614a24242bdabf5f3629acfae84-3" href="#rest_code_dc55a614a24242bdabf5f3629acfae84-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"./example.csv"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
-<a id="rest_code_dc55a614a24242bdabf5f3629acfae84-4" name="rest_code_dc55a614a24242bdabf5f3629acfae84-4" href="#rest_code_dc55a614a24242bdabf5f3629acfae84-4"></a>    <span class="n">csv_reader</span> <span class="o">=</span> <span class="n">DictReader</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
-<a id="rest_code_dc55a614a24242bdabf5f3629acfae84-5" name="rest_code_dc55a614a24242bdabf5f3629acfae84-5" href="#rest_code_dc55a614a24242bdabf5f3629acfae84-5"></a>
-<a id="rest_code_dc55a614a24242bdabf5f3629acfae84-6" name="rest_code_dc55a614a24242bdabf5f3629acfae84-6" href="#rest_code_dc55a614a24242bdabf5f3629acfae84-6"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_reader</span><span class="p">:</span>
-<a id="rest_code_dc55a614a24242bdabf5f3629acfae84-7" name="rest_code_dc55a614a24242bdabf5f3629acfae84-7" href="#rest_code_dc55a614a24242bdabf5f3629acfae84-7"></a>        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<a id="rest_code_dc55a614a24242bdabf5f3629acfae84-8" name="rest_code_dc55a614a24242bdabf5f3629acfae84-8" href="#rest_code_dc55a614a24242bdabf5f3629acfae84-8"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">, of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
-<a id="rest_code_dc55a614a24242bdabf5f3629acfae84-9" name="rest_code_dc55a614a24242bdabf5f3629acfae84-9" href="#rest_code_dc55a614a24242bdabf5f3629acfae84-9"></a>
-<a id="rest_code_dc55a614a24242bdabf5f3629acfae84-10" name="rest_code_dc55a614a24242bdabf5f3629acfae84-10" href="#rest_code_dc55a614a24242bdabf5f3629acfae84-10"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"==="</span><span class="p">)</span>
+<div class="code"><pre class="code python"><a href="#rest_code_dc55a614a24242bdabf5f3629acfae84-1" id="rest_code_dc55a614a24242bdabf5f3629acfae84-1" name="rest_code_dc55a614a24242bdabf5f3629acfae84-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">csv</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictReader</span>
+<a href="#rest_code_dc55a614a24242bdabf5f3629acfae84-2" id="rest_code_dc55a614a24242bdabf5f3629acfae84-2" name="rest_code_dc55a614a24242bdabf5f3629acfae84-2"></a>
+<a href="#rest_code_dc55a614a24242bdabf5f3629acfae84-3" id="rest_code_dc55a614a24242bdabf5f3629acfae84-3" name="rest_code_dc55a614a24242bdabf5f3629acfae84-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"./example.csv"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+<a href="#rest_code_dc55a614a24242bdabf5f3629acfae84-4" id="rest_code_dc55a614a24242bdabf5f3629acfae84-4" name="rest_code_dc55a614a24242bdabf5f3629acfae84-4"></a>    <span class="n">csv_reader</span> <span class="o">=</span> <span class="n">DictReader</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+<a href="#rest_code_dc55a614a24242bdabf5f3629acfae84-5" id="rest_code_dc55a614a24242bdabf5f3629acfae84-5" name="rest_code_dc55a614a24242bdabf5f3629acfae84-5"></a>
+<a href="#rest_code_dc55a614a24242bdabf5f3629acfae84-6" id="rest_code_dc55a614a24242bdabf5f3629acfae84-6" name="rest_code_dc55a614a24242bdabf5f3629acfae84-6"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_reader</span><span class="p">:</span>
+<a href="#rest_code_dc55a614a24242bdabf5f3629acfae84-7" id="rest_code_dc55a614a24242bdabf5f3629acfae84-7" name="rest_code_dc55a614a24242bdabf5f3629acfae84-7"></a>        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a href="#rest_code_dc55a614a24242bdabf5f3629acfae84-8" id="rest_code_dc55a614a24242bdabf5f3629acfae84-8" name="rest_code_dc55a614a24242bdabf5f3629acfae84-8"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">, of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+<a href="#rest_code_dc55a614a24242bdabf5f3629acfae84-9" id="rest_code_dc55a614a24242bdabf5f3629acfae84-9" name="rest_code_dc55a614a24242bdabf5f3629acfae84-9"></a>
+<a href="#rest_code_dc55a614a24242bdabf5f3629acfae84-10" id="rest_code_dc55a614a24242bdabf5f3629acfae84-10" name="rest_code_dc55a614a24242bdabf5f3629acfae84-10"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"==="</span><span class="p">)</span>
 </pre></div>
 <p>Output:</p>
-<div class="code"><pre class="code text"><a id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-1" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-1" href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-1"></a>[order_id] 1001, of type &lt;class 'str'&gt;.
-<a id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-2" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-2" href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-2"></a>[customer_name] Alice Smith, of type &lt;class 'str'&gt;.
-<a id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-3" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-3" href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-3"></a>[order_date] 2026-03-15, of type &lt;class 'str'&gt;.
-<a id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-4" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-4" href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-4"></a>[total_amount] 129.99, of type &lt;class 'str'&gt;.
-<a id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-5" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-5" href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-5"></a>[status] Completed, of type &lt;class 'str'&gt;.
-<a id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-6" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-6" href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-6"></a>===
-<a id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-7" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-7" href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-7"></a>[order_id] 1002, of type &lt;class 'str'&gt;.
-<a id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-8" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-8" href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-8"></a>[customer_name] Bob Jones, of type &lt;class 'str'&gt;.
-<a id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-9" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-9" href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-9"></a>[order_date] 2026-03-16, of type &lt;class 'str'&gt;.
-<a id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-10" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-10" href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-10"></a>[total_amount] 45.50, of type &lt;class 'str'&gt;.
-<a id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-11" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-11" href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-11"></a>[status] Processing, of type &lt;class 'str'&gt;.
-<a id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-12" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-12" href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-12"></a>===
-<a id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-13" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-13" href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-13"></a>...
+<div class="code"><pre class="code text"><a href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-1" id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-1" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-1"></a>[order_id] 1001, of type &lt;class 'str'&gt;.
+<a href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-2" id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-2" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-2"></a>[customer_name] Alice Smith, of type &lt;class 'str'&gt;.
+<a href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-3" id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-3" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-3"></a>[order_date] 2026-03-15, of type &lt;class 'str'&gt;.
+<a href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-4" id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-4" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-4"></a>[total_amount] 129.99, of type &lt;class 'str'&gt;.
+<a href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-5" id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-5" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-5"></a>[status] Completed, of type &lt;class 'str'&gt;.
+<a href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-6" id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-6" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-6"></a>===
+<a href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-7" id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-7" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-7"></a>[order_id] 1002, of type &lt;class 'str'&gt;.
+<a href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-8" id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-8" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-8"></a>[customer_name] Bob Jones, of type &lt;class 'str'&gt;.
+<a href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-9" id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-9" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-9"></a>[order_date] 2026-03-16, of type &lt;class 'str'&gt;.
+<a href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-10" id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-10" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-10"></a>[total_amount] 45.50, of type &lt;class 'str'&gt;.
+<a href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-11" id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-11" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-11"></a>[status] Processing, of type &lt;class 'str'&gt;.
+<a href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-12" id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-12" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-12"></a>===
+<a href="#rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-13" id="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-13" name="rest_code_1fbb9eb5ddc24feba1cc82f87b51a75b-13"></a>...
 </pre></div>
 <p>As we can see, DictReader offloads lots of boilerplate code for us.
 It automatically extracts field names from the first row, skips the header, and pairs cell values with their corresponding column name in a dictionary.
 If a CSV file lacks header row, you must pass column names explicitly using <code class="docutils literal">fieldnames</code> parameter.</p>
 <p>However, DictReader still does not parse data types automatically, and leaves all field values as plain text. If human can easily infer column types just by inspecting column value representations, why not just rely on smarter tools like Pandas?</p>
-<div class="code"><pre class="code python"><a id="rest_code_0d12885e7a1f4f18945995c8bf4162aa-1" name="rest_code_0d12885e7a1f4f18945995c8bf4162aa-1" href="#rest_code_0d12885e7a1f4f18945995c8bf4162aa-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_csv</span>
-<a id="rest_code_0d12885e7a1f4f18945995c8bf4162aa-2" name="rest_code_0d12885e7a1f4f18945995c8bf4162aa-2" href="#rest_code_0d12885e7a1f4f18945995c8bf4162aa-2"></a>
-<a id="rest_code_0d12885e7a1f4f18945995c8bf4162aa-3" name="rest_code_0d12885e7a1f4f18945995c8bf4162aa-3" href="#rest_code_0d12885e7a1f4f18945995c8bf4162aa-3"></a><span class="n">table</span> <span class="o">=</span> <span class="n">read_csv</span><span class="p">(</span><span class="s2">"./example.csv"</span><span class="p">)</span>
-<a id="rest_code_0d12885e7a1f4f18945995c8bf4162aa-4" name="rest_code_0d12885e7a1f4f18945995c8bf4162aa-4" href="#rest_code_0d12885e7a1f4f18945995c8bf4162aa-4"></a><span class="n">table</span>
+<div class="code"><pre class="code python"><a href="#rest_code_0d12885e7a1f4f18945995c8bf4162aa-1" id="rest_code_0d12885e7a1f4f18945995c8bf4162aa-1" name="rest_code_0d12885e7a1f4f18945995c8bf4162aa-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_csv</span>
+<a href="#rest_code_0d12885e7a1f4f18945995c8bf4162aa-2" id="rest_code_0d12885e7a1f4f18945995c8bf4162aa-2" name="rest_code_0d12885e7a1f4f18945995c8bf4162aa-2"></a>
+<a href="#rest_code_0d12885e7a1f4f18945995c8bf4162aa-3" id="rest_code_0d12885e7a1f4f18945995c8bf4162aa-3" name="rest_code_0d12885e7a1f4f18945995c8bf4162aa-3"></a><span class="n">table</span> <span class="o">=</span> <span class="n">read_csv</span><span class="p">(</span><span class="s2">"./example.csv"</span><span class="p">)</span>
+<a href="#rest_code_0d12885e7a1f4f18945995c8bf4162aa-4" id="rest_code_0d12885e7a1f4f18945995c8bf4162aa-4" name="rest_code_0d12885e7a1f4f18945995c8bf4162aa-4"></a><span class="n">table</span>
 </pre></div>
-<div class="code"><pre class="code text"><a id="rest_code_03909e85380249e89922292bc09a38fa-1" name="rest_code_03909e85380249e89922292bc09a38fa-1" href="#rest_code_03909e85380249e89922292bc09a38fa-1"></a>order_id  customer_name  order_date  total_amount      status
-<a id="rest_code_03909e85380249e89922292bc09a38fa-2" name="rest_code_03909e85380249e89922292bc09a38fa-2" href="#rest_code_03909e85380249e89922292bc09a38fa-2"></a>0      1001    Alice Smith  2026-03-15        129.99   Completed
-<a id="rest_code_03909e85380249e89922292bc09a38fa-3" name="rest_code_03909e85380249e89922292bc09a38fa-3" href="#rest_code_03909e85380249e89922292bc09a38fa-3"></a>1      1002      Bob Jones  2026-03-16         45.50  Processing
-<a id="rest_code_03909e85380249e89922292bc09a38fa-4" name="rest_code_03909e85380249e89922292bc09a38fa-4" href="#rest_code_03909e85380249e89922292bc09a38fa-4"></a>2      1003  Charlie Brown  2026-03-16         89.00     Shipped
-<a id="rest_code_03909e85380249e89922292bc09a38fa-5" name="rest_code_03909e85380249e89922292bc09a38fa-5" href="#rest_code_03909e85380249e89922292bc09a38fa-5"></a>3      1004   Diana Prince  2026-03-17        210.75   Completed
+<div class="code"><pre class="code text"><a href="#rest_code_03909e85380249e89922292bc09a38fa-1" id="rest_code_03909e85380249e89922292bc09a38fa-1" name="rest_code_03909e85380249e89922292bc09a38fa-1"></a>order_id  customer_name  order_date  total_amount      status
+<a href="#rest_code_03909e85380249e89922292bc09a38fa-2" id="rest_code_03909e85380249e89922292bc09a38fa-2" name="rest_code_03909e85380249e89922292bc09a38fa-2"></a>0      1001    Alice Smith  2026-03-15        129.99   Completed
+<a href="#rest_code_03909e85380249e89922292bc09a38fa-3" id="rest_code_03909e85380249e89922292bc09a38fa-3" name="rest_code_03909e85380249e89922292bc09a38fa-3"></a>1      1002      Bob Jones  2026-03-16         45.50  Processing
+<a href="#rest_code_03909e85380249e89922292bc09a38fa-4" id="rest_code_03909e85380249e89922292bc09a38fa-4" name="rest_code_03909e85380249e89922292bc09a38fa-4"></a>2      1003  Charlie Brown  2026-03-16         89.00     Shipped
+<a href="#rest_code_03909e85380249e89922292bc09a38fa-5" id="rest_code_03909e85380249e89922292bc09a38fa-5" name="rest_code_03909e85380249e89922292bc09a38fa-5"></a>3      1004   Diana Prince  2026-03-17        210.75   Completed
 </pre></div>
 <p>At the first glance, the result looks great. Just like <code class="docutils literal">DictReader</code>, Pandas gets the header row and label the columns.
 However, if we further look into DataFrame metadata:</p>
-<div class="code"><pre class="code python"><a id="rest_code_912a840c907e46ecbc58440ddf10e130-1" name="rest_code_912a840c907e46ecbc58440ddf10e130-1" href="#rest_code_912a840c907e46ecbc58440ddf10e130-1"></a><span class="n">table</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="code"><pre class="code python"><a href="#rest_code_912a840c907e46ecbc58440ddf10e130-1" id="rest_code_912a840c907e46ecbc58440ddf10e130-1" name="rest_code_912a840c907e46ecbc58440ddf10e130-1"></a><span class="n">table</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
-<div class="code"><pre class="code text"><a id="rest_code_07e8411b840f401e96163266995cc982-1" name="rest_code_07e8411b840f401e96163266995cc982-1" href="#rest_code_07e8411b840f401e96163266995cc982-1"></a>&lt;class 'pandas.DataFrame'&gt;
-<a id="rest_code_07e8411b840f401e96163266995cc982-2" name="rest_code_07e8411b840f401e96163266995cc982-2" href="#rest_code_07e8411b840f401e96163266995cc982-2"></a>RangeIndex: 4 entries, 0 to 3
-<a id="rest_code_07e8411b840f401e96163266995cc982-3" name="rest_code_07e8411b840f401e96163266995cc982-3" href="#rest_code_07e8411b840f401e96163266995cc982-3"></a>Data columns (total 5 columns):
-<a id="rest_code_07e8411b840f401e96163266995cc982-4" name="rest_code_07e8411b840f401e96163266995cc982-4" href="#rest_code_07e8411b840f401e96163266995cc982-4"></a>#   Column         Non-Null Count  Dtype
-<a id="rest_code_07e8411b840f401e96163266995cc982-5" name="rest_code_07e8411b840f401e96163266995cc982-5" href="#rest_code_07e8411b840f401e96163266995cc982-5"></a>---  ------         --------------  -----
-<a id="rest_code_07e8411b840f401e96163266995cc982-6" name="rest_code_07e8411b840f401e96163266995cc982-6" href="#rest_code_07e8411b840f401e96163266995cc982-6"></a>0   order_id       4 non-null      int64
-<a id="rest_code_07e8411b840f401e96163266995cc982-7" name="rest_code_07e8411b840f401e96163266995cc982-7" href="#rest_code_07e8411b840f401e96163266995cc982-7"></a>1   customer_name  4 non-null      str
-<a id="rest_code_07e8411b840f401e96163266995cc982-8" name="rest_code_07e8411b840f401e96163266995cc982-8" href="#rest_code_07e8411b840f401e96163266995cc982-8"></a>2   order_date     4 non-null      str
-<a id="rest_code_07e8411b840f401e96163266995cc982-9" name="rest_code_07e8411b840f401e96163266995cc982-9" href="#rest_code_07e8411b840f401e96163266995cc982-9"></a>3   total_amount   4 non-null      float64
-<a id="rest_code_07e8411b840f401e96163266995cc982-10" name="rest_code_07e8411b840f401e96163266995cc982-10" href="#rest_code_07e8411b840f401e96163266995cc982-10"></a>4   status         4 non-null      str
-<a id="rest_code_07e8411b840f401e96163266995cc982-11" name="rest_code_07e8411b840f401e96163266995cc982-11" href="#rest_code_07e8411b840f401e96163266995cc982-11"></a>dtypes: float64(1), int64(1), str(3)
-<a id="rest_code_07e8411b840f401e96163266995cc982-12" name="rest_code_07e8411b840f401e96163266995cc982-12" href="#rest_code_07e8411b840f401e96163266995cc982-12"></a>memory usage: 292.0 bytes
+<div class="code"><pre class="code text"><a href="#rest_code_07e8411b840f401e96163266995cc982-1" id="rest_code_07e8411b840f401e96163266995cc982-1" name="rest_code_07e8411b840f401e96163266995cc982-1"></a>&lt;class 'pandas.DataFrame'&gt;
+<a href="#rest_code_07e8411b840f401e96163266995cc982-2" id="rest_code_07e8411b840f401e96163266995cc982-2" name="rest_code_07e8411b840f401e96163266995cc982-2"></a>RangeIndex: 4 entries, 0 to 3
+<a href="#rest_code_07e8411b840f401e96163266995cc982-3" id="rest_code_07e8411b840f401e96163266995cc982-3" name="rest_code_07e8411b840f401e96163266995cc982-3"></a>Data columns (total 5 columns):
+<a href="#rest_code_07e8411b840f401e96163266995cc982-4" id="rest_code_07e8411b840f401e96163266995cc982-4" name="rest_code_07e8411b840f401e96163266995cc982-4"></a>#   Column         Non-Null Count  Dtype
+<a href="#rest_code_07e8411b840f401e96163266995cc982-5" id="rest_code_07e8411b840f401e96163266995cc982-5" name="rest_code_07e8411b840f401e96163266995cc982-5"></a>---  ------         --------------  -----
+<a href="#rest_code_07e8411b840f401e96163266995cc982-6" id="rest_code_07e8411b840f401e96163266995cc982-6" name="rest_code_07e8411b840f401e96163266995cc982-6"></a>0   order_id       4 non-null      int64
+<a href="#rest_code_07e8411b840f401e96163266995cc982-7" id="rest_code_07e8411b840f401e96163266995cc982-7" name="rest_code_07e8411b840f401e96163266995cc982-7"></a>1   customer_name  4 non-null      str
+<a href="#rest_code_07e8411b840f401e96163266995cc982-8" id="rest_code_07e8411b840f401e96163266995cc982-8" name="rest_code_07e8411b840f401e96163266995cc982-8"></a>2   order_date     4 non-null      str
+<a href="#rest_code_07e8411b840f401e96163266995cc982-9" id="rest_code_07e8411b840f401e96163266995cc982-9" name="rest_code_07e8411b840f401e96163266995cc982-9"></a>3   total_amount   4 non-null      float64
+<a href="#rest_code_07e8411b840f401e96163266995cc982-10" id="rest_code_07e8411b840f401e96163266995cc982-10" name="rest_code_07e8411b840f401e96163266995cc982-10"></a>4   status         4 non-null      str
+<a href="#rest_code_07e8411b840f401e96163266995cc982-11" id="rest_code_07e8411b840f401e96163266995cc982-11" name="rest_code_07e8411b840f401e96163266995cc982-11"></a>dtypes: float64(1), int64(1), str(3)
+<a href="#rest_code_07e8411b840f401e96163266995cc982-12" id="rest_code_07e8411b840f401e96163266995cc982-12" name="rest_code_07e8411b840f401e96163266995cc982-12"></a>memory usage: 292.0 bytes
 </pre></div>
 <p>We'll notice that while <code class="docutils literal">order_id</code> (integer) and <code class="docutils literal">total_amounts</code> (float-point number) are correctly parsed into numeric types, and descriptive fields remain strings, <code class="docutils literal">order_date</code> column (using <code class="docutils literal"><span class="pre">YEAR-MONTH-DAY/YYYY-MM-DD</span></code> format) is not converted to datetime type as expected.
 That does not mean we should abandon Pandas and look for alternative solutions right now. Pandas just need an extra hint to handle these columns automatically:</p>
-<div class="code"><pre class="code python"><a id="rest_code_d41bdf1edad1465e9aace24910125525-1" name="rest_code_d41bdf1edad1465e9aace24910125525-1" href="#rest_code_d41bdf1edad1465e9aace24910125525-1"></a><span class="n">table</span> <span class="o">=</span> <span class="n">read_csv</span><span class="p">(</span><span class="s2">"./example.csv"</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"order_date"</span><span class="p">])</span>
-<a id="rest_code_d41bdf1edad1465e9aace24910125525-2" name="rest_code_d41bdf1edad1465e9aace24910125525-2" href="#rest_code_d41bdf1edad1465e9aace24910125525-2"></a><span class="n">table</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<div class="code"><pre class="code python"><a href="#rest_code_d41bdf1edad1465e9aace24910125525-1" id="rest_code_d41bdf1edad1465e9aace24910125525-1" name="rest_code_d41bdf1edad1465e9aace24910125525-1"></a><span class="n">table</span> <span class="o">=</span> <span class="n">read_csv</span><span class="p">(</span><span class="s2">"./example.csv"</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"order_date"</span><span class="p">])</span>
+<a href="#rest_code_d41bdf1edad1465e9aace24910125525-2" id="rest_code_d41bdf1edad1465e9aace24910125525-2" name="rest_code_d41bdf1edad1465e9aace24910125525-2"></a><span class="n">table</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
-<div class="code"><pre class="code text"><a id="rest_code_274832dd8172446fa8870ff886ded93b-1" name="rest_code_274832dd8172446fa8870ff886ded93b-1" href="#rest_code_274832dd8172446fa8870ff886ded93b-1"></a>&lt;class 'pandas.DataFrame'&gt;
-<a id="rest_code_274832dd8172446fa8870ff886ded93b-2" name="rest_code_274832dd8172446fa8870ff886ded93b-2" href="#rest_code_274832dd8172446fa8870ff886ded93b-2"></a>RangeIndex: 4 entries, 0 to 3
-<a id="rest_code_274832dd8172446fa8870ff886ded93b-3" name="rest_code_274832dd8172446fa8870ff886ded93b-3" href="#rest_code_274832dd8172446fa8870ff886ded93b-3"></a>Data columns (total 5 columns):
-<a id="rest_code_274832dd8172446fa8870ff886ded93b-4" name="rest_code_274832dd8172446fa8870ff886ded93b-4" href="#rest_code_274832dd8172446fa8870ff886ded93b-4"></a>#   Column         Non-Null Count  Dtype
-<a id="rest_code_274832dd8172446fa8870ff886ded93b-5" name="rest_code_274832dd8172446fa8870ff886ded93b-5" href="#rest_code_274832dd8172446fa8870ff886ded93b-5"></a>---  ------         --------------  -----
-<a id="rest_code_274832dd8172446fa8870ff886ded93b-6" name="rest_code_274832dd8172446fa8870ff886ded93b-6" href="#rest_code_274832dd8172446fa8870ff886ded93b-6"></a>0   order_id       4 non-null      int64
-<a id="rest_code_274832dd8172446fa8870ff886ded93b-7" name="rest_code_274832dd8172446fa8870ff886ded93b-7" href="#rest_code_274832dd8172446fa8870ff886ded93b-7"></a>1   customer_name  4 non-null      str
-<a id="rest_code_274832dd8172446fa8870ff886ded93b-8" name="rest_code_274832dd8172446fa8870ff886ded93b-8" href="#rest_code_274832dd8172446fa8870ff886ded93b-8"></a>2   order_date     4 non-null      datetime64[us]
-<a id="rest_code_274832dd8172446fa8870ff886ded93b-9" name="rest_code_274832dd8172446fa8870ff886ded93b-9" href="#rest_code_274832dd8172446fa8870ff886ded93b-9"></a>3   total_amount   4 non-null      float64
-<a id="rest_code_274832dd8172446fa8870ff886ded93b-10" name="rest_code_274832dd8172446fa8870ff886ded93b-10" href="#rest_code_274832dd8172446fa8870ff886ded93b-10"></a>4   status         4 non-null      str
-<a id="rest_code_274832dd8172446fa8870ff886ded93b-11" name="rest_code_274832dd8172446fa8870ff886ded93b-11" href="#rest_code_274832dd8172446fa8870ff886ded93b-11"></a>dtypes: datetime64[us](1), float64(1), int64(1), str(2)
-<a id="rest_code_274832dd8172446fa8870ff886ded93b-12" name="rest_code_274832dd8172446fa8870ff886ded93b-12" href="#rest_code_274832dd8172446fa8870ff886ded93b-12"></a>memory usage: 292.0 bytes
+<div class="code"><pre class="code text"><a href="#rest_code_274832dd8172446fa8870ff886ded93b-1" id="rest_code_274832dd8172446fa8870ff886ded93b-1" name="rest_code_274832dd8172446fa8870ff886ded93b-1"></a>&lt;class 'pandas.DataFrame'&gt;
+<a href="#rest_code_274832dd8172446fa8870ff886ded93b-2" id="rest_code_274832dd8172446fa8870ff886ded93b-2" name="rest_code_274832dd8172446fa8870ff886ded93b-2"></a>RangeIndex: 4 entries, 0 to 3
+<a href="#rest_code_274832dd8172446fa8870ff886ded93b-3" id="rest_code_274832dd8172446fa8870ff886ded93b-3" name="rest_code_274832dd8172446fa8870ff886ded93b-3"></a>Data columns (total 5 columns):
+<a href="#rest_code_274832dd8172446fa8870ff886ded93b-4" id="rest_code_274832dd8172446fa8870ff886ded93b-4" name="rest_code_274832dd8172446fa8870ff886ded93b-4"></a>#   Column         Non-Null Count  Dtype
+<a href="#rest_code_274832dd8172446fa8870ff886ded93b-5" id="rest_code_274832dd8172446fa8870ff886ded93b-5" name="rest_code_274832dd8172446fa8870ff886ded93b-5"></a>---  ------         --------------  -----
+<a href="#rest_code_274832dd8172446fa8870ff886ded93b-6" id="rest_code_274832dd8172446fa8870ff886ded93b-6" name="rest_code_274832dd8172446fa8870ff886ded93b-6"></a>0   order_id       4 non-null      int64
+<a href="#rest_code_274832dd8172446fa8870ff886ded93b-7" id="rest_code_274832dd8172446fa8870ff886ded93b-7" name="rest_code_274832dd8172446fa8870ff886ded93b-7"></a>1   customer_name  4 non-null      str
+<a href="#rest_code_274832dd8172446fa8870ff886ded93b-8" id="rest_code_274832dd8172446fa8870ff886ded93b-8" name="rest_code_274832dd8172446fa8870ff886ded93b-8"></a>2   order_date     4 non-null      datetime64[us]
+<a href="#rest_code_274832dd8172446fa8870ff886ded93b-9" id="rest_code_274832dd8172446fa8870ff886ded93b-9" name="rest_code_274832dd8172446fa8870ff886ded93b-9"></a>3   total_amount   4 non-null      float64
+<a href="#rest_code_274832dd8172446fa8870ff886ded93b-10" id="rest_code_274832dd8172446fa8870ff886ded93b-10" name="rest_code_274832dd8172446fa8870ff886ded93b-10"></a>4   status         4 non-null      str
+<a href="#rest_code_274832dd8172446fa8870ff886ded93b-11" id="rest_code_274832dd8172446fa8870ff886ded93b-11" name="rest_code_274832dd8172446fa8870ff886ded93b-11"></a>dtypes: datetime64[us](1), float64(1), int64(1), str(2)
+<a href="#rest_code_274832dd8172446fa8870ff886ded93b-12" id="rest_code_274832dd8172446fa8870ff886ded93b-12" name="rest_code_274832dd8172446fa8870ff886ded93b-12"></a>memory usage: 292.0 bytes
 </pre></div>
 <p>Now Pandas correctly converts <code class="docutils literal">order_date</code> column into a proper time data type!
 But it is important to understand this kind of automated process highly relies on Pandas' internal parser to recognize date patterns.
-While production datasets should follow <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">ISO standards</a> (which elimiate ambiguity, guarantee correct sorting, and preserve readability), real world data is full of exceptions. Developers frequently encounter non-standard formats using different unit separators, localized names, and special unit ordering (e.g. 31st Mar, 2023).
+While production datasets should follow <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601" rel="noopener noreferrer" target="_blank">ISO standards</a> (which elimiate ambiguity, guarantee correct sorting, and preserve readability), real world data is full of exceptions. Developers frequently encounter non-standard formats using different unit separators, localized names, and special unit ordering (e.g. 31st Mar, 2023).
 Finally, data type parsing depends on establishing serialization and derialization protocol between provider and receiver, which applies to all non-string data types.</p>
 </section>
 </div>
-    </div>
-            <ul class="pager">
-<li class="previous">
-                <a href="../../../2021/03/blog-development-log-intro/" rel="prev">← Previous post</a>
-            </li>
-            <li class="next">
-                <a href="../data-exchange-csv-002/" rel="next">Next post →</a>
-            </li>
-        </ul>
-<div data-title="" id="utterances-thread"></div>
-        <script src="https://utteranc.es/client.js" repo="pykenny/pykenny.github.io" issue-term="title" label="Discussion" theme="gruvbox-dark"></script></article>
 </div>
-                </div>
-                <div id="ftr">
-                </div>
-            </div>
-        </div>
-    </div>
-	<footer><small>Contents © 2026         <a href="mailto:soft.desk9067@fastmail.com">Po-Yu Hsieh</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </small>
-	</footer>
+<div class="post-navigation">
+<div class="post-navigation-link">
+<div class="navigation-prev">
+<a class="navigation-link" href="../../../2021/03/blog-development-log-intro/" rel="prev">← Previous post</a>
+</div>
+</div>
+<div class="post-navigation-link">
+<div class="navigation-next">
+<a class="navigation-link" href="../data-exchange-csv-002/" rel="next">Next post →</a>
+</div>
+</div>
+</div>
+<div data-title="" id="utterances-thread"></div>
+<script issue-term="title" label="Discussion" repo="pykenny/pykenny.github.io" src="https://utteranc.es/client.js" theme="gruvbox-dark"></script></article>
+</div>
+</div>
+<div id="ftr">
+</div>
+</div>
+</div>
+</div>
+<footer><small>Contents © 2026         <a href="mailto:soft.desk9067@fastmail.com">Po-Yu Hsieh</a> - Powered by         <a href="https://getnikola.com" rel="noopener noreferrer" target="_blank">Nikola</a> </small>
+</footer>
 </body>
 </html>

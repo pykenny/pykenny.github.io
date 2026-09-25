@@ -1,53 +1,52 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="Po-Yu Hsieh">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Po-Yu Hsieh" name="author"/>
 <title>Data Exchange Format (1) - Working with CSV, Part 3 | Layperson's Notes</title>
-<link href="../../../../assets/css/all.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/all.css" rel="stylesheet" type="text/css"/>
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-    <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
-<link rel="icon" href="../../../../favicons/favicon.ico" sizes="64x64">
-<link rel="icon" href="../../../../favicons/favicon-16x16.png" sizes="16x16">
-<link rel="icon" href="../../../../favicons/favicon-32x32.png" sizes="32x32">
-<link rel="icon" href="../../../../favicons/favicon-96x96.png" sizes="96x96">
-<link rel="icon" href="../../../../favicons/favicon-128.png" sizes="128x128">
-<link rel="icon" href="../../../../favicons/favicon-196x196.png" sizes="196x196">
+    <![endif]--><link href="../../../../rss.xml" rel="alternate" title="RSS" type="application/rss+xml"/>
+<link href="../../../../favicons/favicon.ico" rel="icon" sizes="64x64"/>
+<link href="../../../../favicons/favicon-16x16.png" rel="icon" sizes="16x16"/>
+<link href="../../../../favicons/favicon-32x32.png" rel="icon" sizes="32x32"/>
+<link href="../../../../favicons/favicon-96x96.png" rel="icon" sizes="96x96"/>
+<link href="../../../../favicons/favicon-128.png" rel="icon" sizes="128x128"/>
+<link href="../../../../favicons/favicon-196x196.png" rel="icon" sizes="196x196"/>
 </head>
 <body>
-    <div id="wrp">
-        <div id="cont">
-            <div id="page">
-                <header><h1>
-                        <a href="https://pyhsieh.net/" title="Layperson's Notes" rel="home">Layperson's Notes</a>
-                    </h1>
-                    <h2>Slightly better than reinventing the wheels ⚙</h2>
-                </header><div id="body">
-                    <nav><ul>
-<li><a href="https://pyhsieh.net/" title="Home" rel="home"><i class="fa fa-fw fa-home"></i></a></li>
-                            <li><a href="https://pyhsieh.net/categories/" title="Tags"><i class="fa fa-fw fa-tags"></i></a></li>
-                            <li><a href="https://pyhsieh.net/rss.xml" title="RSS feed"><i class="fa fa-fw fa-rss"></i></a></li>
-                            <li><a href="https://pyhsieh.net/pages/about/" title="About"><i class="fa fa-fw fa-user"></i></a></li>
-                            <li><a href="https://github.com/pykenny" title="My GitHub account"><i class="fa fa-fw fa-github"></i></a></li>
-                            <li><a href="https://www.linkedin.com/in/po-yu-hsieh/" title="My Linkedin profile"><i class="fa fa-fw fa-linkedin-square"></i></a></li>
-                        </ul></nav><div id="content">
-    <article class="post-text"><div class="h-entry" itemscope="itemscope" itemtype="http://schema.org/Article">
-        <h1 class="p-name" itemprop="headline name">Data Exchange Format (1) - Working with CSV, Part 3</h1>
-
-    <small>
+<div id="wrp">
+<div id="cont">
+<div id="page">
+<header><h1>
+<a href="../../../../" rel="home" title="Layperson's Notes">Layperson's Notes</a>
+</h1>
+<h2>Slightly better than reinventing the wheels ⚙</h2>
+</header><div id="body">
+<nav><ul>
+<li><a href="../../../../" rel="home" title="Home"><i class="fa fa-fw fa-home"></i></a></li>
+<li><a href="../../../../categories/" title="Tags"><i class="fa fa-fw fa-tags"></i></a></li>
+<li><a href="../../../../rss.xml" title="RSS feed"><i class="fa fa-fw fa-rss"></i></a></li>
+<li><a href="../../../../pages/about/" title="About"><i class="fa fa-fw fa-user"></i></a></li>
+<li><a href="https://github.com/pykenny" rel="noopener noreferrer" target="_blank" title="My GitHub account"><i class="fa fa-fw fa-github"></i></a></li>
+<li><a href="https://www.linkedin.com/in/po-yu-hsieh/" rel="noopener noreferrer" target="_blank" title="My Linkedin profile"><i class="fa fa-fw fa-linkedin-square"></i></a></li>
+</ul></nav><div id="content">
+<article class="post-text"><div class="h-entry" itemscope="itemscope" itemtype="http://schema.org/Article">
+<h1 class="p-name" itemprop="headline name">Data Exchange Format (1) - Working with CSV, Part 3</h1>
+<small>
         Posted: <time class="published dt-published" datetime="2026-09-19T00:00:00+08:00" itemprop="datePublished">2026-09-19 00:00</time>
 		          |  
             <a class="tag" href="../../../../categories/dataengineering/"><span class="badge badge-info">DataEngineering</span></a>
-            <a class="tag" href="../../../../categories/fileformat/"><span class="badge badge-info">FileFormat</span></a>
-
-    </small>
-    <div class="e-content" itemprop="articleBody text">
-    <p>In the last article, we explained how CSV specification defines columns and eliminates ambiguity to correctly identify delimiters and quotes.
+<a class="tag" href="../../../../categories/fileformat/"><span class="badge badge-info">FileFormat</span></a>
+</small>
+<div class="e-content" itemprop="articleBody text">
+<p>In the last article, we explained how CSV specification defines columns and eliminates ambiguity to correctly identify delimiters and quotes.
 In this part, we will focus on how CSV defines row boundaries and cover how CSV parsers handles malformed data.</p>
 <!-- TEASER_END -->
-<hr class="docutils">
+<hr class="docutils"/>
 <section id="line-breaks-as-row-boundaries"><h2>Line Breaks as Row Boundaries</h2>
 <p>As we discussed earlier, a standard CSV row looks like a sentence:</p>
 <blockquote>
@@ -113,14 +112,14 @@ shipping" by support.</p></td>
 </tbody>
 </table>
 <p>... will look like this in a text editor:</p>
-<div class="code"><pre class="code text"><a id="rest_code_f9160e18f499409d8eeb6082faf1584b-1" name="rest_code_f9160e18f499409d8eeb6082faf1584b-1" href="#rest_code_f9160e18f499409d8eeb6082faf1584b-1"></a>order_id,customer_name,order_date,total_amount,status,notes
-<a id="rest_code_f9160e18f499409d8eeb6082faf1584b-2" name="rest_code_f9160e18f499409d8eeb6082faf1584b-2" href="#rest_code_f9160e18f499409d8eeb6082faf1584b-2"></a>1001,"Alice, Smith",2026-03-15,"1,129.99",Completed,"Customer requested
-<a id="rest_code_f9160e18f499409d8eeb6082faf1584b-3" name="rest_code_f9160e18f499409d8eeb6082faf1584b-3" href="#rest_code_f9160e18f499409d8eeb6082faf1584b-3"></a>""leave at front door"" option."
-<a id="rest_code_f9160e18f499409d8eeb6082faf1584b-4" name="rest_code_f9160e18f499409d8eeb6082faf1584b-4" href="#rest_code_f9160e18f499409d8eeb6082faf1584b-4"></a>1002,"Bob, Jones",2026-03-16,"45.50",Processing,"Marked as ""priority
-<a id="rest_code_f9160e18f499409d8eeb6082faf1584b-5" name="rest_code_f9160e18f499409d8eeb6082faf1584b-5" href="#rest_code_f9160e18f499409d8eeb6082faf1584b-5"></a>shipping"" by support."
-<a id="rest_code_f9160e18f499409d8eeb6082faf1584b-6" name="rest_code_f9160e18f499409d8eeb6082faf1584b-6" href="#rest_code_f9160e18f499409d8eeb6082faf1584b-6"></a>1003,"Charlie, Brown",2026-03-16,"27,400.00",Shipped,Standard delivery
-<a id="rest_code_f9160e18f499409d8eeb6082faf1584b-7" name="rest_code_f9160e18f499409d8eeb6082faf1584b-7" href="#rest_code_f9160e18f499409d8eeb6082faf1584b-7"></a>1004,"Diana, Prince",2026-03-17,"210.75",Completed,"Gift message:
-<a id="rest_code_f9160e18f499409d8eeb6082faf1584b-8" name="rest_code_f9160e18f499409d8eeb6082faf1584b-8" href="#rest_code_f9160e18f499409d8eeb6082faf1584b-8"></a>""Happy Birthday!"""
+<div class="code"><pre class="code text"><a href="#rest_code_f9160e18f499409d8eeb6082faf1584b-1" id="rest_code_f9160e18f499409d8eeb6082faf1584b-1" name="rest_code_f9160e18f499409d8eeb6082faf1584b-1"></a>order_id,customer_name,order_date,total_amount,status,notes
+<a href="#rest_code_f9160e18f499409d8eeb6082faf1584b-2" id="rest_code_f9160e18f499409d8eeb6082faf1584b-2" name="rest_code_f9160e18f499409d8eeb6082faf1584b-2"></a>1001,"Alice, Smith",2026-03-15,"1,129.99",Completed,"Customer requested
+<a href="#rest_code_f9160e18f499409d8eeb6082faf1584b-3" id="rest_code_f9160e18f499409d8eeb6082faf1584b-3" name="rest_code_f9160e18f499409d8eeb6082faf1584b-3"></a>""leave at front door"" option."
+<a href="#rest_code_f9160e18f499409d8eeb6082faf1584b-4" id="rest_code_f9160e18f499409d8eeb6082faf1584b-4" name="rest_code_f9160e18f499409d8eeb6082faf1584b-4"></a>1002,"Bob, Jones",2026-03-16,"45.50",Processing,"Marked as ""priority
+<a href="#rest_code_f9160e18f499409d8eeb6082faf1584b-5" id="rest_code_f9160e18f499409d8eeb6082faf1584b-5" name="rest_code_f9160e18f499409d8eeb6082faf1584b-5"></a>shipping"" by support."
+<a href="#rest_code_f9160e18f499409d8eeb6082faf1584b-6" id="rest_code_f9160e18f499409d8eeb6082faf1584b-6" name="rest_code_f9160e18f499409d8eeb6082faf1584b-6"></a>1003,"Charlie, Brown",2026-03-16,"27,400.00",Shipped,Standard delivery
+<a href="#rest_code_f9160e18f499409d8eeb6082faf1584b-7" id="rest_code_f9160e18f499409d8eeb6082faf1584b-7" name="rest_code_f9160e18f499409d8eeb6082faf1584b-7"></a>1004,"Diana, Prince",2026-03-17,"210.75",Completed,"Gift message:
+<a href="#rest_code_f9160e18f499409d8eeb6082faf1584b-8" id="rest_code_f9160e18f499409d8eeb6082faf1584b-8" name="rest_code_f9160e18f499409d8eeb6082faf1584b-8"></a>""Happy Birthday!"""
 </pre></div>
 <p>The simplified example remains readable because it only has 4 rows, with each row having at most one line break within the context.
 For larger datasets with lengthy text content fields, developers should rely on CSV readers or other data inspection tools instead of viewing raw text.</p>
@@ -133,129 +132,129 @@ But what if the dataset is typed in an editor or even manually modified later on
 Because of this, while Python's <code class="docutils literal">csv.writers</code> interface provides <code class="docutils literal">lineterminator</code> and <code class="docutils literal">dialect</code> options to configure output format,
 <code class="docutils literal">csv.reader</code> omits line terminator settings. Instead, it takes any unquoted CR, LF, or combination of the two as a valid line break.</p>
 <p>We can prove this design choice by creating the following example:</p>
-<div class="code"><pre class="code python"><a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-1" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-1" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">csv</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictReader</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-2" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-2" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-2"></a>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-3" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-3" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-3"></a><span class="n">csv_content</span> <span class="o">=</span> <span class="p">(</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-4" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-4" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-4"></a>    <span class="s2">"row_1,row_2,row_3,row_4</span><span class="se">\n</span><span class="s2">"</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-5" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-5" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-5"></a>    <span class="s2">"1,2,3,4</span><span class="se">\r\n</span><span class="s2">"</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-6" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-6" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-6"></a>    <span class="s2">"5,6,7,8</span><span class="se">\r</span><span class="s2">"</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-7" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-7" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-7"></a>    <span class="s2">"9,10,11,12</span><span class="se">\n\r</span><span class="s2">"</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-8" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-8" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-8"></a>    <span class="s2">"13,14,15,16</span><span class="se">\n\r\n\n\n\r\r</span><span class="s2">"</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-9" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-9" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-9"></a>    <span class="s2">"17,18,19,20"</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-10" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-10" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-10"></a><span class="p">)</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-11" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-11" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-11"></a>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-12" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-12" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-12"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"./example_mixed_newlines.csv"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-13" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-13" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-13"></a>    <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">csv_content</span><span class="p">)</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-14" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-14" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-14"></a>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-15" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-15" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-15"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"./example_mixed_newlines.csv"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">text_reader</span><span class="p">:</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-16" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-16" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-16"></a>    <span class="n">csv_reader</span> <span class="o">=</span> <span class="n">DictReader</span><span class="p">(</span><span class="n">text_reader</span><span class="p">)</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-17" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-17" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-17"></a>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-18" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-18" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-18"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_reader</span><span class="p">:</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-19" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-19" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-19"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-<a id="rest_code_b8505a20b49d40069e5e5aabddc1022e-20" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-20" href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-20"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"==="</span><span class="p">)</span>
+<div class="code"><pre class="code python"><a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-1" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-1" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">csv</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictReader</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-2" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-2" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-2"></a>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-3" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-3" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-3"></a><span class="n">csv_content</span> <span class="o">=</span> <span class="p">(</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-4" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-4" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-4"></a>    <span class="s2">"row_1,row_2,row_3,row_4</span><span class="se">\n</span><span class="s2">"</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-5" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-5" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-5"></a>    <span class="s2">"1,2,3,4</span><span class="se">\r\n</span><span class="s2">"</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-6" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-6" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-6"></a>    <span class="s2">"5,6,7,8</span><span class="se">\r</span><span class="s2">"</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-7" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-7" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-7"></a>    <span class="s2">"9,10,11,12</span><span class="se">\n\r</span><span class="s2">"</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-8" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-8" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-8"></a>    <span class="s2">"13,14,15,16</span><span class="se">\n\r\n\n\n\r\r</span><span class="s2">"</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-9" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-9" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-9"></a>    <span class="s2">"17,18,19,20"</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-10" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-10" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-10"></a><span class="p">)</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-11" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-11" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-11"></a>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-12" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-12" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-12"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"./example_mixed_newlines.csv"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-13" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-13" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-13"></a>    <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">csv_content</span><span class="p">)</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-14" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-14" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-14"></a>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-15" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-15" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-15"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"./example_mixed_newlines.csv"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">text_reader</span><span class="p">:</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-16" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-16" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-16"></a>    <span class="n">csv_reader</span> <span class="o">=</span> <span class="n">DictReader</span><span class="p">(</span><span class="n">text_reader</span><span class="p">)</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-17" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-17" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-17"></a>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-18" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-18" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-18"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_reader</span><span class="p">:</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-19" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-19" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-19"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<a href="#rest_code_b8505a20b49d40069e5e5aabddc1022e-20" id="rest_code_b8505a20b49d40069e5e5aabddc1022e-20" name="rest_code_b8505a20b49d40069e5e5aabddc1022e-20"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">"==="</span><span class="p">)</span>
 </pre></div>
 <p>Look at the literal string that defines the CSV content, it is clear that each row uses different combination of characters for line separator.
 This inconsistency can look more confusing in a text editor:</p>
-<div class="code"><pre class="code text"><a id="rest_code_9b0169f2172b4f4a873eb40755129fb6-1" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-1" href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-1"></a>row_1,row_2,row_3,row_4
-<a id="rest_code_9b0169f2172b4f4a873eb40755129fb6-2" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-2" href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-2"></a>1,2,3,4
-<a id="rest_code_9b0169f2172b4f4a873eb40755129fb6-3" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-3" href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-3"></a>5,6,7,8
-<a id="rest_code_9b0169f2172b4f4a873eb40755129fb6-4" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-4" href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-4"></a>9,10,11,12
-<a id="rest_code_9b0169f2172b4f4a873eb40755129fb6-5" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-5" href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-5"></a>
-<a id="rest_code_9b0169f2172b4f4a873eb40755129fb6-6" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-6" href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-6"></a>13,14,15,16
-<a id="rest_code_9b0169f2172b4f4a873eb40755129fb6-7" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-7" href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-7"></a>
-<a id="rest_code_9b0169f2172b4f4a873eb40755129fb6-8" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-8" href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-8"></a>
-<a id="rest_code_9b0169f2172b4f4a873eb40755129fb6-9" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-9" href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-9"></a>
-<a id="rest_code_9b0169f2172b4f4a873eb40755129fb6-10" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-10" href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-10"></a>
-<a id="rest_code_9b0169f2172b4f4a873eb40755129fb6-11" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-11" href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-11"></a>
-<a id="rest_code_9b0169f2172b4f4a873eb40755129fb6-12" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-12" href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-12"></a>17,18,19,20
+<div class="code"><pre class="code text"><a href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-1" id="rest_code_9b0169f2172b4f4a873eb40755129fb6-1" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-1"></a>row_1,row_2,row_3,row_4
+<a href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-2" id="rest_code_9b0169f2172b4f4a873eb40755129fb6-2" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-2"></a>1,2,3,4
+<a href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-3" id="rest_code_9b0169f2172b4f4a873eb40755129fb6-3" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-3"></a>5,6,7,8
+<a href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-4" id="rest_code_9b0169f2172b4f4a873eb40755129fb6-4" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-4"></a>9,10,11,12
+<a href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-5" id="rest_code_9b0169f2172b4f4a873eb40755129fb6-5" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-5"></a>
+<a href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-6" id="rest_code_9b0169f2172b4f4a873eb40755129fb6-6" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-6"></a>13,14,15,16
+<a href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-7" id="rest_code_9b0169f2172b4f4a873eb40755129fb6-7" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-7"></a>
+<a href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-8" id="rest_code_9b0169f2172b4f4a873eb40755129fb6-8" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-8"></a>
+<a href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-9" id="rest_code_9b0169f2172b4f4a873eb40755129fb6-9" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-9"></a>
+<a href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-10" id="rest_code_9b0169f2172b4f4a873eb40755129fb6-10" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-10"></a>
+<a href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-11" id="rest_code_9b0169f2172b4f4a873eb40755129fb6-11" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-11"></a>
+<a href="#rest_code_9b0169f2172b4f4a873eb40755129fb6-12" id="rest_code_9b0169f2172b4f4a873eb40755129fb6-12" name="rest_code_9b0169f2172b4f4a873eb40755129fb6-12"></a>17,18,19,20
 </pre></div>
 <p>However, Python's <code class="docutils literal">csv.reader</code> deals with this and slices the records perfectly:</p>
-<div class="code"><pre class="code text"><a id="rest_code_33ee3fb60a81491fa662204e14431fb3-1" name="rest_code_33ee3fb60a81491fa662204e14431fb3-1" href="#rest_code_33ee3fb60a81491fa662204e14431fb3-1"></a>{'row_1': '1', 'row_2': '2', 'row_3': '3', 'row_4': '4'}
-<a id="rest_code_33ee3fb60a81491fa662204e14431fb3-2" name="rest_code_33ee3fb60a81491fa662204e14431fb3-2" href="#rest_code_33ee3fb60a81491fa662204e14431fb3-2"></a>===
-<a id="rest_code_33ee3fb60a81491fa662204e14431fb3-3" name="rest_code_33ee3fb60a81491fa662204e14431fb3-3" href="#rest_code_33ee3fb60a81491fa662204e14431fb3-3"></a>{'row_1': '5', 'row_2': '6', 'row_3': '7', 'row_4': '8'}
-<a id="rest_code_33ee3fb60a81491fa662204e14431fb3-4" name="rest_code_33ee3fb60a81491fa662204e14431fb3-4" href="#rest_code_33ee3fb60a81491fa662204e14431fb3-4"></a>===
-<a id="rest_code_33ee3fb60a81491fa662204e14431fb3-5" name="rest_code_33ee3fb60a81491fa662204e14431fb3-5" href="#rest_code_33ee3fb60a81491fa662204e14431fb3-5"></a>{'row_1': '9', 'row_2': '10', 'row_3': '11', 'row_4': '12'}
-<a id="rest_code_33ee3fb60a81491fa662204e14431fb3-6" name="rest_code_33ee3fb60a81491fa662204e14431fb3-6" href="#rest_code_33ee3fb60a81491fa662204e14431fb3-6"></a>===
-<a id="rest_code_33ee3fb60a81491fa662204e14431fb3-7" name="rest_code_33ee3fb60a81491fa662204e14431fb3-7" href="#rest_code_33ee3fb60a81491fa662204e14431fb3-7"></a>{'row_1': '13', 'row_2': '14', 'row_3': '15', 'row_4': '16'}
-<a id="rest_code_33ee3fb60a81491fa662204e14431fb3-8" name="rest_code_33ee3fb60a81491fa662204e14431fb3-8" href="#rest_code_33ee3fb60a81491fa662204e14431fb3-8"></a>===
-<a id="rest_code_33ee3fb60a81491fa662204e14431fb3-9" name="rest_code_33ee3fb60a81491fa662204e14431fb3-9" href="#rest_code_33ee3fb60a81491fa662204e14431fb3-9"></a>{'row_1': '17', 'row_2': '18', 'row_3': '19', 'row_4': '20'}
-<a id="rest_code_33ee3fb60a81491fa662204e14431fb3-10" name="rest_code_33ee3fb60a81491fa662204e14431fb3-10" href="#rest_code_33ee3fb60a81491fa662204e14431fb3-10"></a>===
+<div class="code"><pre class="code text"><a href="#rest_code_33ee3fb60a81491fa662204e14431fb3-1" id="rest_code_33ee3fb60a81491fa662204e14431fb3-1" name="rest_code_33ee3fb60a81491fa662204e14431fb3-1"></a>{'row_1': '1', 'row_2': '2', 'row_3': '3', 'row_4': '4'}
+<a href="#rest_code_33ee3fb60a81491fa662204e14431fb3-2" id="rest_code_33ee3fb60a81491fa662204e14431fb3-2" name="rest_code_33ee3fb60a81491fa662204e14431fb3-2"></a>===
+<a href="#rest_code_33ee3fb60a81491fa662204e14431fb3-3" id="rest_code_33ee3fb60a81491fa662204e14431fb3-3" name="rest_code_33ee3fb60a81491fa662204e14431fb3-3"></a>{'row_1': '5', 'row_2': '6', 'row_3': '7', 'row_4': '8'}
+<a href="#rest_code_33ee3fb60a81491fa662204e14431fb3-4" id="rest_code_33ee3fb60a81491fa662204e14431fb3-4" name="rest_code_33ee3fb60a81491fa662204e14431fb3-4"></a>===
+<a href="#rest_code_33ee3fb60a81491fa662204e14431fb3-5" id="rest_code_33ee3fb60a81491fa662204e14431fb3-5" name="rest_code_33ee3fb60a81491fa662204e14431fb3-5"></a>{'row_1': '9', 'row_2': '10', 'row_3': '11', 'row_4': '12'}
+<a href="#rest_code_33ee3fb60a81491fa662204e14431fb3-6" id="rest_code_33ee3fb60a81491fa662204e14431fb3-6" name="rest_code_33ee3fb60a81491fa662204e14431fb3-6"></a>===
+<a href="#rest_code_33ee3fb60a81491fa662204e14431fb3-7" id="rest_code_33ee3fb60a81491fa662204e14431fb3-7" name="rest_code_33ee3fb60a81491fa662204e14431fb3-7"></a>{'row_1': '13', 'row_2': '14', 'row_3': '15', 'row_4': '16'}
+<a href="#rest_code_33ee3fb60a81491fa662204e14431fb3-8" id="rest_code_33ee3fb60a81491fa662204e14431fb3-8" name="rest_code_33ee3fb60a81491fa662204e14431fb3-8"></a>===
+<a href="#rest_code_33ee3fb60a81491fa662204e14431fb3-9" id="rest_code_33ee3fb60a81491fa662204e14431fb3-9" name="rest_code_33ee3fb60a81491fa662204e14431fb3-9"></a>{'row_1': '17', 'row_2': '18', 'row_3': '19', 'row_4': '20'}
+<a href="#rest_code_33ee3fb60a81491fa662204e14431fb3-10" id="rest_code_33ee3fb60a81491fa662204e14431fb3-10" name="rest_code_33ee3fb60a81491fa662204e14431fb3-10"></a>===
 </pre></div>
 <p>But keep in mind that other CSV tools may have different parser design and configurations,
 and you should always proceed with caution it you find data source contains inconsistent line breaks.</p>
 </section><section id="python-s-special-handling-of-newlines"><h2>Python's Special Handling of Newlines</h2>
 <p>You may have noticed that in our examples, <code class="docutils literal">newline</code> parameter is explicitly set when opening the file:</p>
-<div class="code"><pre class="code python"><a id="rest_code_c9f11668b07d41ba8959656a31f1cff9-1" name="rest_code_c9f11668b07d41ba8959656a31f1cff9-1" href="#rest_code_c9f11668b07d41ba8959656a31f1cff9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">csv</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictReader</span>
-<a id="rest_code_c9f11668b07d41ba8959656a31f1cff9-2" name="rest_code_c9f11668b07d41ba8959656a31f1cff9-2" href="#rest_code_c9f11668b07d41ba8959656a31f1cff9-2"></a>
-<a id="rest_code_c9f11668b07d41ba8959656a31f1cff9-3" name="rest_code_c9f11668b07d41ba8959656a31f1cff9-3" href="#rest_code_c9f11668b07d41ba8959656a31f1cff9-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"./example.csv"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_reader</span><span class="p">:</span>
-<a id="rest_code_c9f11668b07d41ba8959656a31f1cff9-4" name="rest_code_c9f11668b07d41ba8959656a31f1cff9-4" href="#rest_code_c9f11668b07d41ba8959656a31f1cff9-4"></a>    <span class="n">csv_reader</span> <span class="o">=</span> <span class="n">DictReader</span><span class="p">(</span><span class="n">file_reader</span><span class="p">)</span>
-<a id="rest_code_c9f11668b07d41ba8959656a31f1cff9-5" name="rest_code_c9f11668b07d41ba8959656a31f1cff9-5" href="#rest_code_c9f11668b07d41ba8959656a31f1cff9-5"></a>    <span class="c1"># ...</span>
+<div class="code"><pre class="code python"><a href="#rest_code_c9f11668b07d41ba8959656a31f1cff9-1" id="rest_code_c9f11668b07d41ba8959656a31f1cff9-1" name="rest_code_c9f11668b07d41ba8959656a31f1cff9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">csv</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictReader</span>
+<a href="#rest_code_c9f11668b07d41ba8959656a31f1cff9-2" id="rest_code_c9f11668b07d41ba8959656a31f1cff9-2" name="rest_code_c9f11668b07d41ba8959656a31f1cff9-2"></a>
+<a href="#rest_code_c9f11668b07d41ba8959656a31f1cff9-3" id="rest_code_c9f11668b07d41ba8959656a31f1cff9-3" name="rest_code_c9f11668b07d41ba8959656a31f1cff9-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"./example.csv"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_reader</span><span class="p">:</span>
+<a href="#rest_code_c9f11668b07d41ba8959656a31f1cff9-4" id="rest_code_c9f11668b07d41ba8959656a31f1cff9-4" name="rest_code_c9f11668b07d41ba8959656a31f1cff9-4"></a>    <span class="n">csv_reader</span> <span class="o">=</span> <span class="n">DictReader</span><span class="p">(</span><span class="n">file_reader</span><span class="p">)</span>
+<a href="#rest_code_c9f11668b07d41ba8959656a31f1cff9-5" id="rest_code_c9f11668b07d41ba8959656a31f1cff9-5" name="rest_code_c9f11668b07d41ba8959656a31f1cff9-5"></a>    <span class="c1"># ...</span>
 </pre></div>
-<p>This is due to Python's text I/O design. Setting <code class="docutils literal"><span class="pre">newline=""</span></code> disables Python's <a class="reference external" href="https://docs.python.org/3/glossary.html#term-universal-newlines">uniersal newline translation</a>,
+<p>This is due to Python's text I/O design. Setting <code class="docutils literal"><span class="pre">newline=""</span></code> disables Python's <a class="reference external" href="https://docs.python.org/3/glossary.html#term-universal-newlines" rel="noopener noreferrer" target="_blank">uniersal newline translation</a>,
 guaranteeing the original newline characters get preserved during
-both <a class="reference external" href="https://docs.python.org/3/library/io.html#:~:text=If%20newline%20is%20%27%27%2C%20universal%20newlines%20mode%20is%20enabled%2C%20but%20line%20endings%20are%20returned%20to%20the%20caller%20untranslated.">reading</a>
-and <a class="reference external" href="https://docs.python.org/3/library/io.html#:~:text=If%20newline%20is%20%27%27%20or%20%27%5Cn%27%2C%20no%20translation%20takes%20place.">writing</a>.
+both <a class="reference external" href="https://docs.python.org/3/library/io.html#:~:text=If%20newline%20is%20%27%27%2C%20universal%20newlines%20mode%20is%20enabled%2C%20but%20line%20endings%20are%20returned%20to%20the%20caller%20untranslated." rel="noopener noreferrer" target="_blank">reading</a>
+and <a class="reference external" href="https://docs.python.org/3/library/io.html#:~:text=If%20newline%20is%20%27%27%20or%20%27%5Cn%27%2C%20no%20translation%20takes%20place." rel="noopener noreferrer" target="_blank">writing</a>.
 Because <code class="docutils literal">csv</code> module has its own processing logic, applying this setting prevents file handler from conflicting with CSV processor.</p>
 </section><section id="handling-surrounding-whitespaces"><h2>Handling Surrounding Whitespaces</h2>
 <p>Just like this article, regular English writings often leave a space right after a comma.
 Parsing an unquoted CSV dataset preserves these spaces:</p>
-<div class="code"><pre class="code text"><a id="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-1" name="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-1" href="#rest_code_23e71ac6aa004af1874580b0a0b4a6a9-1"></a>order_id,customer_name,order_date,total_amount,status
-<a id="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-2" name="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-2" href="#rest_code_23e71ac6aa004af1874580b0a0b4a6a9-2"></a> 1001, Alice Smith, 2026-03-15, 129.99, Completed
-<a id="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-3" name="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-3" href="#rest_code_23e71ac6aa004af1874580b0a0b4a6a9-3"></a>1002 ,Bob Jones ,2026-03-16 ,45.50 ,Processing
-<a id="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-4" name="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-4" href="#rest_code_23e71ac6aa004af1874580b0a0b4a6a9-4"></a> 1003 , Charlie Brown , 2026-03-16 , 89.00 , Shipped
-<a id="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-5" name="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-5" href="#rest_code_23e71ac6aa004af1874580b0a0b4a6a9-5"></a>1004,Diana Prince,2026-03-17,210.75,Completed
+<div class="code"><pre class="code text"><a href="#rest_code_23e71ac6aa004af1874580b0a0b4a6a9-1" id="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-1" name="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-1"></a>order_id,customer_name,order_date,total_amount,status
+<a href="#rest_code_23e71ac6aa004af1874580b0a0b4a6a9-2" id="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-2" name="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-2"></a> 1001, Alice Smith, 2026-03-15, 129.99, Completed
+<a href="#rest_code_23e71ac6aa004af1874580b0a0b4a6a9-3" id="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-3" name="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-3"></a>1002 ,Bob Jones ,2026-03-16 ,45.50 ,Processing
+<a href="#rest_code_23e71ac6aa004af1874580b0a0b4a6a9-4" id="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-4" name="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-4"></a> 1003 , Charlie Brown , 2026-03-16 , 89.00 , Shipped
+<a href="#rest_code_23e71ac6aa004af1874580b0a0b4a6a9-5" id="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-5" name="rest_code_23e71ac6aa004af1874580b0a0b4a6a9-5"></a>1004,Diana Prince,2026-03-17,210.75,Completed
 </pre></div>
-<div class="code"><pre class="code python"><a id="rest_code_a38f84b14fa145e49adcaaea86733659-1" name="rest_code_a38f84b14fa145e49adcaaea86733659-1" href="#rest_code_a38f84b14fa145e49adcaaea86733659-1"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">' Alice Smith'</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-2" name="rest_code_a38f84b14fa145e49adcaaea86733659-2" href="#rest_code_a38f84b14fa145e49adcaaea86733659-2"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">' 2026-03-15'</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-3" name="rest_code_a38f84b14fa145e49adcaaea86733659-3" href="#rest_code_a38f84b14fa145e49adcaaea86733659-3"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">' 1001'</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-4" name="rest_code_a38f84b14fa145e49adcaaea86733659-4" href="#rest_code_a38f84b14fa145e49adcaaea86733659-4"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">' Completed'</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-5" name="rest_code_a38f84b14fa145e49adcaaea86733659-5" href="#rest_code_a38f84b14fa145e49adcaaea86733659-5"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">' 129.99'</span><span class="p">}</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-6" name="rest_code_a38f84b14fa145e49adcaaea86733659-6" href="#rest_code_a38f84b14fa145e49adcaaea86733659-6"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Bob Jones '</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-7" name="rest_code_a38f84b14fa145e49adcaaea86733659-7" href="#rest_code_a38f84b14fa145e49adcaaea86733659-7"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'2026-03-16 '</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-8" name="rest_code_a38f84b14fa145e49adcaaea86733659-8" href="#rest_code_a38f84b14fa145e49adcaaea86733659-8"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1002 '</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-9" name="rest_code_a38f84b14fa145e49adcaaea86733659-9" href="#rest_code_a38f84b14fa145e49adcaaea86733659-9"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'Processing '</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-10" name="rest_code_a38f84b14fa145e49adcaaea86733659-10" href="#rest_code_a38f84b14fa145e49adcaaea86733659-10"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">'45.50 '</span><span class="p">}</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-11" name="rest_code_a38f84b14fa145e49adcaaea86733659-11" href="#rest_code_a38f84b14fa145e49adcaaea86733659-11"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">' Charlie Brown '</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-12" name="rest_code_a38f84b14fa145e49adcaaea86733659-12" href="#rest_code_a38f84b14fa145e49adcaaea86733659-12"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">' 2026-03-16 '</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-13" name="rest_code_a38f84b14fa145e49adcaaea86733659-13" href="#rest_code_a38f84b14fa145e49adcaaea86733659-13"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">' 1003 '</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-14" name="rest_code_a38f84b14fa145e49adcaaea86733659-14" href="#rest_code_a38f84b14fa145e49adcaaea86733659-14"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">' Shipped '</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-15" name="rest_code_a38f84b14fa145e49adcaaea86733659-15" href="#rest_code_a38f84b14fa145e49adcaaea86733659-15"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">' 89.00 '</span><span class="p">}</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-16" name="rest_code_a38f84b14fa145e49adcaaea86733659-16" href="#rest_code_a38f84b14fa145e49adcaaea86733659-16"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Diana Prince'</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-17" name="rest_code_a38f84b14fa145e49adcaaea86733659-17" href="#rest_code_a38f84b14fa145e49adcaaea86733659-17"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'2026-03-17'</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-18" name="rest_code_a38f84b14fa145e49adcaaea86733659-18" href="#rest_code_a38f84b14fa145e49adcaaea86733659-18"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1004'</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-19" name="rest_code_a38f84b14fa145e49adcaaea86733659-19" href="#rest_code_a38f84b14fa145e49adcaaea86733659-19"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'Completed'</span><span class="p">,</span>
-<a id="rest_code_a38f84b14fa145e49adcaaea86733659-20" name="rest_code_a38f84b14fa145e49adcaaea86733659-20" href="#rest_code_a38f84b14fa145e49adcaaea86733659-20"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">'210.75'</span><span class="p">}</span>
+<div class="code"><pre class="code python"><a href="#rest_code_a38f84b14fa145e49adcaaea86733659-1" id="rest_code_a38f84b14fa145e49adcaaea86733659-1" name="rest_code_a38f84b14fa145e49adcaaea86733659-1"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">' Alice Smith'</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-2" id="rest_code_a38f84b14fa145e49adcaaea86733659-2" name="rest_code_a38f84b14fa145e49adcaaea86733659-2"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">' 2026-03-15'</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-3" id="rest_code_a38f84b14fa145e49adcaaea86733659-3" name="rest_code_a38f84b14fa145e49adcaaea86733659-3"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">' 1001'</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-4" id="rest_code_a38f84b14fa145e49adcaaea86733659-4" name="rest_code_a38f84b14fa145e49adcaaea86733659-4"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">' Completed'</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-5" id="rest_code_a38f84b14fa145e49adcaaea86733659-5" name="rest_code_a38f84b14fa145e49adcaaea86733659-5"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">' 129.99'</span><span class="p">}</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-6" id="rest_code_a38f84b14fa145e49adcaaea86733659-6" name="rest_code_a38f84b14fa145e49adcaaea86733659-6"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Bob Jones '</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-7" id="rest_code_a38f84b14fa145e49adcaaea86733659-7" name="rest_code_a38f84b14fa145e49adcaaea86733659-7"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'2026-03-16 '</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-8" id="rest_code_a38f84b14fa145e49adcaaea86733659-8" name="rest_code_a38f84b14fa145e49adcaaea86733659-8"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1002 '</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-9" id="rest_code_a38f84b14fa145e49adcaaea86733659-9" name="rest_code_a38f84b14fa145e49adcaaea86733659-9"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'Processing '</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-10" id="rest_code_a38f84b14fa145e49adcaaea86733659-10" name="rest_code_a38f84b14fa145e49adcaaea86733659-10"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">'45.50 '</span><span class="p">}</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-11" id="rest_code_a38f84b14fa145e49adcaaea86733659-11" name="rest_code_a38f84b14fa145e49adcaaea86733659-11"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">' Charlie Brown '</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-12" id="rest_code_a38f84b14fa145e49adcaaea86733659-12" name="rest_code_a38f84b14fa145e49adcaaea86733659-12"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">' 2026-03-16 '</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-13" id="rest_code_a38f84b14fa145e49adcaaea86733659-13" name="rest_code_a38f84b14fa145e49adcaaea86733659-13"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">' 1003 '</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-14" id="rest_code_a38f84b14fa145e49adcaaea86733659-14" name="rest_code_a38f84b14fa145e49adcaaea86733659-14"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">' Shipped '</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-15" id="rest_code_a38f84b14fa145e49adcaaea86733659-15" name="rest_code_a38f84b14fa145e49adcaaea86733659-15"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">' 89.00 '</span><span class="p">}</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-16" id="rest_code_a38f84b14fa145e49adcaaea86733659-16" name="rest_code_a38f84b14fa145e49adcaaea86733659-16"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Diana Prince'</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-17" id="rest_code_a38f84b14fa145e49adcaaea86733659-17" name="rest_code_a38f84b14fa145e49adcaaea86733659-17"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'2026-03-17'</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-18" id="rest_code_a38f84b14fa145e49adcaaea86733659-18" name="rest_code_a38f84b14fa145e49adcaaea86733659-18"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1004'</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-19" id="rest_code_a38f84b14fa145e49adcaaea86733659-19" name="rest_code_a38f84b14fa145e49adcaaea86733659-19"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'Completed'</span><span class="p">,</span>
+<a href="#rest_code_a38f84b14fa145e49adcaaea86733659-20" id="rest_code_a38f84b14fa145e49adcaaea86733659-20" name="rest_code_a38f84b14fa145e49adcaaea86733659-20"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">'210.75'</span><span class="p">}</span>
 </pre></div>
 <p>The looks fine and just requires string trim on the fields for value parsing.
 But what happens if we try to parse a quoted CSV dataset with spaces surrounding the quotes?</p>
-<div class="code"><pre class="code text"><a id="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-1" name="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-1" href="#rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-1"></a>order_id,customer_name,order_date,total_amount,status
-<a id="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-2" name="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-2" href="#rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-2"></a> 1001, "Alice, Smith", 2026-03-15, "1,129.99", Completed
-<a id="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-3" name="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-3" href="#rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-3"></a>1002  ,"Bob, Jones" ,2026-03-16 ,"45.50" ,Processing
-<a id="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-4" name="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-4" href="#rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-4"></a> 1003 , "Charlie, Brown" , 2026-03-16 , "27,400.00" , Shipped
-<a id="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-5" name="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-5" href="#rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-5"></a>1004,"Diana, Prince",2026-03-17,"210.75",Completed
+<div class="code"><pre class="code text"><a href="#rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-1" id="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-1" name="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-1"></a>order_id,customer_name,order_date,total_amount,status
+<a href="#rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-2" id="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-2" name="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-2"></a> 1001, "Alice, Smith", 2026-03-15, "1,129.99", Completed
+<a href="#rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-3" id="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-3" name="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-3"></a>1002  ,"Bob, Jones" ,2026-03-16 ,"45.50" ,Processing
+<a href="#rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-4" id="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-4" name="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-4"></a> 1003 , "Charlie, Brown" , 2026-03-16 , "27,400.00" , Shipped
+<a href="#rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-5" id="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-5" name="rest_code_ae7b3b3b9cf84fe1b47b67118cd9bad9-5"></a>1004,"Diana, Prince",2026-03-17,"210.75",Completed
 </pre></div>
-<div class="code"><pre class="code python"><a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-1" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-1" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-1"></a><span class="p">{</span>   <span class="kc">None</span><span class="p">:</span> <span class="p">[</span><span class="s1">'129.99"'</span><span class="p">,</span> <span class="s1">' Completed'</span><span class="p">],</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-2" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-2" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-2"></a>    <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">' "Alice'</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-3" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-3" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-3"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">' Smith"'</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-4" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-4" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-4"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">' 1001'</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-5" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-5" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-5"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">' "1'</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-6" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-6" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-6"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">' 2026-03-15'</span><span class="p">}</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-7" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-7" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-7"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Bob, Jones '</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-8" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-8" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-8"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'2026-03-16 '</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-9" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-9" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-9"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1002 '</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-10" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-10" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-10"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'Processing '</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-11" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-11" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-11"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">'45.50 '</span><span class="p">}</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-12" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-12" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-12"></a><span class="p">{</span>   <span class="kc">None</span><span class="p">:</span> <span class="p">[</span><span class="s1">'400.00" '</span><span class="p">,</span> <span class="s1">' Shipped '</span><span class="p">],</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-13" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-13" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-13"></a>    <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">' "Charlie'</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-14" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-14" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-14"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">' Brown" '</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-15" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-15" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-15"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">' 1003 '</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-16" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-16" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-16"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">' "27'</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-17" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-17" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-17"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">' 2026-03-16 '</span><span class="p">}</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-18" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-18" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-18"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Diana, Prince'</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-19" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-19" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-19"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'2026-03-17'</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-20" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-20" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-20"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1004'</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-21" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-21" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-21"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'Completed'</span><span class="p">,</span>
-<a id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-22" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-22" href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-22"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">'210.75'</span><span class="p">}</span>
+<div class="code"><pre class="code python"><a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-1" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-1" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-1"></a><span class="p">{</span>   <span class="kc">None</span><span class="p">:</span> <span class="p">[</span><span class="s1">'129.99"'</span><span class="p">,</span> <span class="s1">' Completed'</span><span class="p">],</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-2" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-2" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-2"></a>    <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">' "Alice'</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-3" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-3" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-3"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">' Smith"'</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-4" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-4" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-4"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">' 1001'</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-5" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-5" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-5"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">' "1'</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-6" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-6" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-6"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">' 2026-03-15'</span><span class="p">}</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-7" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-7" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-7"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Bob, Jones '</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-8" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-8" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-8"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'2026-03-16 '</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-9" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-9" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-9"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1002 '</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-10" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-10" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-10"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'Processing '</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-11" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-11" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-11"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">'45.50 '</span><span class="p">}</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-12" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-12" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-12"></a><span class="p">{</span>   <span class="kc">None</span><span class="p">:</span> <span class="p">[</span><span class="s1">'400.00" '</span><span class="p">,</span> <span class="s1">' Shipped '</span><span class="p">],</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-13" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-13" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-13"></a>    <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">' "Charlie'</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-14" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-14" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-14"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">' Brown" '</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-15" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-15" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-15"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">' 1003 '</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-16" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-16" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-16"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">' "27'</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-17" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-17" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-17"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">' 2026-03-16 '</span><span class="p">}</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-18" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-18" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-18"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Diana, Prince'</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-19" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-19" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-19"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'2026-03-17'</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-20" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-20" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-20"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1004'</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-21" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-21" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-21"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'Completed'</span><span class="p">,</span>
+<a href="#rest_code_7f40819981504d08b1d7d2fa623d9c0b-22" id="rest_code_7f40819981504d08b1d7d2fa623d9c0b-22" name="rest_code_7f40819981504d08b1d7d2fa623d9c0b-22"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">'210.75'</span><span class="p">}</span>
 </pre></div>
 <p>We will cover the <code class="docutils literal">None</code> values shown in the sample output shortly.
 Now notice that that parsed result is broken on fields where we deliberately added spaces around the quotes.
@@ -270,34 +269,34 @@ However, we should understand this is used for handling very specific edge case 
 </section><section id="too-many-or-too-few-fields"><h2>Too Many, or Too Few Fields?</h2>
 <p>In some cases, a corrupted dataset may mistakenly contains rows with more or fewer fields than specified in the schema.
 The following example demonstrates one row with extra fields, and another one missing some data:</p>
-<div class="code"><pre class="code text"><a id="rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-1" name="rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-1" href="#rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-1"></a>order_id,customer_name,order_date,total_amount,status
-<a id="rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-2" name="rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-2" href="#rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-2"></a>1001,Alice Smith,2026-03-15,129.99,Completed,3.0,Standard Rate
-<a id="rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-3" name="rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-3" href="#rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-3"></a>1003,Charlie Brown,89.00
+<div class="code"><pre class="code text"><a href="#rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-1" id="rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-1" name="rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-1"></a>order_id,customer_name,order_date,total_amount,status
+<a href="#rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-2" id="rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-2" name="rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-2"></a>1001,Alice Smith,2026-03-15,129.99,Completed,3.0,Standard Rate
+<a href="#rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-3" id="rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-3" name="rest_code_10e006ff66dc4e1a9a2e4e207d2aa0d7-3"></a>1003,Charlie Brown,89.00
 </pre></div>
 <p>Standard <code class="docutils literal">csv.reader</code> and <code class="docutils literal">csv.writer</code> do not care about this kind of misalignment.
 They simply parse or export the fields without checking if column count matches the number of columns in underlying schema:</p>
-<div class="code"><pre class="code python"><a id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-1" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-1" href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-1"></a><span class="p">[</span><span class="s1">'order_id'</span><span class="p">,</span> <span class="s1">'customer_name'</span><span class="p">,</span> <span class="s1">'order_date'</span><span class="p">,</span> <span class="s1">'total_amount'</span><span class="p">,</span> <span class="s1">'status'</span><span class="p">]</span>
-<a id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-2" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-2" href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-2"></a><span class="p">[</span>   <span class="s1">'1001'</span><span class="p">,</span>
-<a id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-3" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-3" href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-3"></a>    <span class="s1">'Alice Smith'</span><span class="p">,</span>
-<a id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-4" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-4" href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-4"></a>    <span class="s1">'2026-03-15'</span><span class="p">,</span>
-<a id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-5" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-5" href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-5"></a>    <span class="s1">'129.99'</span><span class="p">,</span>
-<a id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-6" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-6" href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-6"></a>    <span class="s1">'Completed'</span><span class="p">,</span>
-<a id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-7" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-7" href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-7"></a>    <span class="s1">'3.0'</span><span class="p">,</span>
-<a id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-8" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-8" href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-8"></a>    <span class="s1">'Standard Rate'</span><span class="p">]</span>
-<a id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-9" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-9" href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-9"></a><span class="p">[</span><span class="s1">'1003'</span><span class="p">,</span> <span class="s1">'Charlie Brown'</span><span class="p">,</span> <span class="s1">'89.00'</span><span class="p">]</span>
+<div class="code"><pre class="code python"><a href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-1" id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-1" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-1"></a><span class="p">[</span><span class="s1">'order_id'</span><span class="p">,</span> <span class="s1">'customer_name'</span><span class="p">,</span> <span class="s1">'order_date'</span><span class="p">,</span> <span class="s1">'total_amount'</span><span class="p">,</span> <span class="s1">'status'</span><span class="p">]</span>
+<a href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-2" id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-2" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-2"></a><span class="p">[</span>   <span class="s1">'1001'</span><span class="p">,</span>
+<a href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-3" id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-3" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-3"></a>    <span class="s1">'Alice Smith'</span><span class="p">,</span>
+<a href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-4" id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-4" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-4"></a>    <span class="s1">'2026-03-15'</span><span class="p">,</span>
+<a href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-5" id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-5" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-5"></a>    <span class="s1">'129.99'</span><span class="p">,</span>
+<a href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-6" id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-6" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-6"></a>    <span class="s1">'Completed'</span><span class="p">,</span>
+<a href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-7" id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-7" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-7"></a>    <span class="s1">'3.0'</span><span class="p">,</span>
+<a href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-8" id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-8" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-8"></a>    <span class="s1">'Standard Rate'</span><span class="p">]</span>
+<a href="#rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-9" id="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-9" name="rest_code_9bc47718ed1a4eb7ae83a636ec1236b0-9"></a><span class="p">[</span><span class="s1">'1003'</span><span class="p">,</span> <span class="s1">'Charlie Brown'</span><span class="p">,</span> <span class="s1">'89.00'</span><span class="p">]</span>
 </pre></div>
 <p>On the contrary, <code class="docutils literal">csv.DictReader</code> and <code class="docutils literal">csv.DictWriter</code> inherently keep predefined column list, allowing them to handle imcompatities between input and schema:</p>
-<div class="code"><pre class="code python"><a id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-1" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-1" href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-1"></a><span class="p">{</span>   <span class="kc">None</span><span class="p">:</span> <span class="p">[</span><span class="s1">'3.0'</span><span class="p">,</span> <span class="s1">'Standard Rate'</span><span class="p">],</span>
-<a id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-2" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-2" href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-2"></a>    <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Alice Smith'</span><span class="p">,</span>
-<a id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-3" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-3" href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-3"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'2026-03-15'</span><span class="p">,</span>
-<a id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-4" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-4" href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-4"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1001'</span><span class="p">,</span>
-<a id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-5" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-5" href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-5"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'Completed'</span><span class="p">,</span>
-<a id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-6" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-6" href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-6"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">'129.99'</span><span class="p">}</span>
-<a id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-7" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-7" href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-7"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Charlie Brown'</span><span class="p">,</span>
-<a id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-8" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-8" href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-8"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'89.00'</span><span class="p">,</span>
-<a id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-9" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-9" href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-9"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1003'</span><span class="p">,</span>
-<a id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-10" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-10" href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-10"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-<a id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-11" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-11" href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-11"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+<div class="code"><pre class="code python"><a href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-1" id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-1" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-1"></a><span class="p">{</span>   <span class="kc">None</span><span class="p">:</span> <span class="p">[</span><span class="s1">'3.0'</span><span class="p">,</span> <span class="s1">'Standard Rate'</span><span class="p">],</span>
+<a href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-2" id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-2" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-2"></a>    <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Alice Smith'</span><span class="p">,</span>
+<a href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-3" id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-3" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-3"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'2026-03-15'</span><span class="p">,</span>
+<a href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-4" id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-4" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-4"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1001'</span><span class="p">,</span>
+<a href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-5" id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-5" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-5"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'Completed'</span><span class="p">,</span>
+<a href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-6" id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-6" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-6"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">'129.99'</span><span class="p">}</span>
+<a href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-7" id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-7" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-7"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Charlie Brown'</span><span class="p">,</span>
+<a href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-8" id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-8" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-8"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'89.00'</span><span class="p">,</span>
+<a href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-9" id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-9" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-9"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1003'</span><span class="p">,</span>
+<a href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-10" id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-10" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-10"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+<a href="#rest_code_08e52943ea974009bd7dcbe276bb4b1a-11" id="rest_code_08e52943ea974009bd7dcbe276bb4b1a-11" name="rest_code_08e52943ea974009bd7dcbe276bb4b1a-11"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
 </pre></div>
 <p>Looking at the <code class="docutils literal">csv.DictReader</code> output above, and we can notice that by default it uses <code class="docutils literal">None</code> key to store extra field values, and sets missing column values to <code class="docutils literal">None</code>.
 This behavior can be configured through <code class="docutils literal">restkey</code> and <code class="docutils literal">restval</code> parameters, respectively. Similarly, <code class="docutils literal">csv.DictWriter</code> offers <code class="docutils literal">restval</code> parameter to fill in missing column values, and uses <code class="docutils literal">extrasaction</code> option to decide how to handle dictionary keys not defined in column names.</p>
@@ -306,25 +305,29 @@ The need for such features emerges from manual data entry errors, poorly impleme
 These factors makes CSV a simple and flexible, yet notoriously challenging format for data representation and exchange.</p>
 </section>
 </div>
-    </div>
-            <ul class="pager">
-<li class="previous">
-                <a href="../data-exchange-csv-002/" rel="prev">← Previous post</a>
-            </li>
-            <li class="next">
-                <a href="../data-exchange-csv-004/" rel="next">Next post →</a>
-            </li>
-        </ul>
-<div data-title="" id="utterances-thread"></div>
-        <script src="https://utteranc.es/client.js" repo="pykenny/pykenny.github.io" issue-term="title" label="Discussion" theme="gruvbox-dark"></script></article>
 </div>
-                </div>
-                <div id="ftr">
-                </div>
-            </div>
-        </div>
-    </div>
-	<footer><small>Contents © 2026         <a href="mailto:soft.desk9067@fastmail.com">Po-Yu Hsieh</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </small>
-	</footer>
+<div class="post-navigation">
+<div class="post-navigation-link">
+<div class="navigation-prev">
+<a class="navigation-link" href="../data-exchange-csv-002/" rel="prev">← Previous post</a>
+</div>
+</div>
+<div class="post-navigation-link">
+<div class="navigation-next">
+<a class="navigation-link" href="../data-exchange-csv-004/" rel="next">Next post →</a>
+</div>
+</div>
+</div>
+<div data-title="" id="utterances-thread"></div>
+<script issue-term="title" label="Discussion" repo="pykenny/pykenny.github.io" src="https://utteranc.es/client.js" theme="gruvbox-dark"></script></article>
+</div>
+</div>
+<div id="ftr">
+</div>
+</div>
+</div>
+</div>
+<footer><small>Contents © 2026         <a href="mailto:soft.desk9067@fastmail.com">Po-Yu Hsieh</a> - Powered by         <a href="https://getnikola.com" rel="noopener noreferrer" target="_blank">Nikola</a> </small>
+</footer>
 </body>
 </html>
