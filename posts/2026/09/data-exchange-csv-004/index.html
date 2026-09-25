@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Po-Yu Hsieh">
+<title>Data Exchange Format (1) - Working with CSV, Part 4 | Layperson's Notes</title>
+<link href="../../../../assets/css/all.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="icon" href="../../../../favicons/favicon.ico" sizes="64x64">
+<link rel="icon" href="../../../../favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" href="../../../../favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" href="../../../../favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" href="../../../../favicons/favicon-128.png" sizes="128x128">
+<link rel="icon" href="../../../../favicons/favicon-196x196.png" sizes="196x196">
+</head>
+<body>
+    <div id="wrp">
+        <div id="cont">
+            <div id="page">
+                <header><h1>
+                        <a href="https://pyhsieh.net/" title="Layperson's Notes" rel="home">Layperson's Notes</a>
+                    </h1>
+                    <h2>Slightly better than reinventing the wheels ⚙</h2>
+                </header><div id="body">
+                    <nav><ul>
+<li><a href="https://pyhsieh.net/" title="Home" rel="home"><i class="fa fa-fw fa-home"></i></a></li>
+                            <li><a href="https://pyhsieh.net/categories/" title="Tags"><i class="fa fa-fw fa-tags"></i></a></li>
+                            <li><a href="https://pyhsieh.net/rss.xml" title="RSS feed"><i class="fa fa-fw fa-rss"></i></a></li>
+                            <li><a href="https://pyhsieh.net/pages/about/" title="About"><i class="fa fa-fw fa-user"></i></a></li>
+                            <li><a href="https://github.com/pykenny" title="My GitHub account"><i class="fa fa-fw fa-github"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/po-yu-hsieh/" title="My Linkedin profile"><i class="fa fa-fw fa-linkedin-square"></i></a></li>
+                        </ul></nav><div id="content">
+    <article class="post-text"><div class="h-entry" itemscope="itemscope" itemtype="http://schema.org/Article">
+        <h1 class="p-name" itemprop="headline name">Data Exchange Format (1) - Working with CSV, Part 4</h1>
+
+    <small>
+        Posted: <time class="published dt-published" datetime="2026-09-25T00:00:00+08:00" itemprop="datePublished">2026-09-25 00:00</time>
+		          |  
+            <a class="tag" href="../../../../categories/dataengineering/"><span class="badge badge-info">DataEngineering</span></a>
+            <a class="tag" href="../../../../categories/fileformat/"><span class="badge badge-info">FileFormat</span></a>
+
+    </small>
+    <div class="e-content" itemprop="articleBody text">
+    <p>So far, we have covered standard CSV format, its variations, and common configurations in Python's <code class="docutils literal">csv</code> module.
+Now you'd understand what a standard CSV looks like, how the specification defines data boundaries and escapes special characters.
+In this part, we will explore few advanced topics related to format variations and additional settings in Python's <code class="docutils literal">csv</code> module.</p>
+<!-- TEASER_END -->
+<hr class="docutils">
+<section id="introducing-escape-character"><h2>Introducing Escape Character</h2>
+<p>Though not defined in the original RFC specification, there is an alternative approach to tell special characters in field values without relying on double-quoting.
+Similar to how we write string literals in programming languages, this approach defines an excape character to label special characters within field value.
+A classic, well-known example of this is MySQL's data export utility (specifically the <code class="docutils literal">SELECT INTO OUTFILE</code> statement).
+Many database systems take a similar approach, using backslash ("<code class="docutils literal">\</code>") as most programming lanagues do.</p>
+<p>However, unlike C, Java, or Python, where special characters are represented by predefined sequences like <code class="docutils literal">"This is an <span class="pre">apple.\nThis</span> is an <span class="pre">oragne.\nWe</span> call them <span class="pre">\"fruits\"."</span></code>,
+this CSV variation simply prepends escape character right before the raw text:</p>
+<div class="code"><pre class="code text"><a id="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-1" name="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-1" href="#rest_code_c5e25da495d2472e8b1e95326d2cd0fd-1"></a>order_id,customer_name,order_date,total_amount,status,notes
+<a id="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-2" name="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-2" href="#rest_code_c5e25da495d2472e8b1e95326d2cd0fd-2"></a>1001,Alice\, Smith,2026-03-15,1\,129.99,Completed,Customer requested\
+<a id="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-3" name="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-3" href="#rest_code_c5e25da495d2472e8b1e95326d2cd0fd-3"></a>"leave at front door" option.
+<a id="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-4" name="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-4" href="#rest_code_c5e25da495d2472e8b1e95326d2cd0fd-4"></a>1002,Bob\, Jones,2026-03-16,45.50,Processing,Marked as "priority\
+<a id="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-5" name="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-5" href="#rest_code_c5e25da495d2472e8b1e95326d2cd0fd-5"></a>shipping" by support.
+<a id="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-6" name="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-6" href="#rest_code_c5e25da495d2472e8b1e95326d2cd0fd-6"></a>1003,Charlie\, Brown,2026-03-16,27\,400.00,Shipped,Standard delivery
+<a id="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-7" name="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-7" href="#rest_code_c5e25da495d2472e8b1e95326d2cd0fd-7"></a>1004,Diana\, Prince,2026-03-17,210.75,Completed,Gift message:\
+<a id="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-8" name="rest_code_c5e25da495d2472e8b1e95326d2cd0fd-8" href="#rest_code_c5e25da495d2472e8b1e95326d2cd0fd-8"></a>"Happy Birthday!"
+</pre></div>
+<p>In the example above, we modified one of our previous quoted examples, replacing bouding quotes with backslash-escaped commas and line breaks.
+To escape a backslash itself in field value, simply double it, just as how we escape quotation marks in standard CSVs (using two consecutive backslashes <code class="docutils literal">\\</code>).</p>
+<p>When using Python's <code class="docutils literal">csv</code> module, developers must disable quoting to switch escaping mechanism:</p>
+<div class="code"><pre class="code python"><a id="rest_code_0b3840c6780c4a658a89241a72bbc18c-1" name="rest_code_0b3840c6780c4a658a89241a72bbc18c-1" href="#rest_code_0b3840c6780c4a658a89241a72bbc18c-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
+<a id="rest_code_0b3840c6780c4a658a89241a72bbc18c-2" name="rest_code_0b3840c6780c4a658a89241a72bbc18c-2" href="#rest_code_0b3840c6780c4a658a89241a72bbc18c-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">csv</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictReader</span><span class="p">,</span> <span class="n">QUOTE_NONE</span>
+<a id="rest_code_0b3840c6780c4a658a89241a72bbc18c-3" name="rest_code_0b3840c6780c4a658a89241a72bbc18c-3" href="#rest_code_0b3840c6780c4a658a89241a72bbc18c-3"></a>
+<a id="rest_code_0b3840c6780c4a658a89241a72bbc18c-4" name="rest_code_0b3840c6780c4a658a89241a72bbc18c-4" href="#rest_code_0b3840c6780c4a658a89241a72bbc18c-4"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"./.locals/data-exchange-csv/example.csv"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_reader</span><span class="p">:</span>
+<a id="rest_code_0b3840c6780c4a658a89241a72bbc18c-5" name="rest_code_0b3840c6780c4a658a89241a72bbc18c-5" href="#rest_code_0b3840c6780c4a658a89241a72bbc18c-5"></a>    <span class="n">csv_reader</span> <span class="o">=</span> <span class="n">DictReader</span><span class="p">(</span><span class="n">file_reader</span><span class="p">,</span> <span class="n">escapechar</span><span class="o">=</span><span class="s2">"</span><span class="se">\\</span><span class="s2">"</span><span class="p">,</span> <span class="n">quoting</span><span class="o">=</span><span class="n">QUOTE_NONE</span><span class="p">)</span>
+<a id="rest_code_0b3840c6780c4a658a89241a72bbc18c-6" name="rest_code_0b3840c6780c4a658a89241a72bbc18c-6" href="#rest_code_0b3840c6780c4a658a89241a72bbc18c-6"></a>    <span class="c1">#                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<a id="rest_code_0b3840c6780c4a658a89241a72bbc18c-7" name="rest_code_0b3840c6780c4a658a89241a72bbc18c-7" href="#rest_code_0b3840c6780c4a658a89241a72bbc18c-7"></a>
+<a id="rest_code_0b3840c6780c4a658a89241a72bbc18c-8" name="rest_code_0b3840c6780c4a658a89241a72bbc18c-8" href="#rest_code_0b3840c6780c4a658a89241a72bbc18c-8"></a>    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv_reader</span><span class="p">:</span>
+<a id="rest_code_0b3840c6780c4a658a89241a72bbc18c-9" name="rest_code_0b3840c6780c4a658a89241a72bbc18c-9" href="#rest_code_0b3840c6780c4a658a89241a72bbc18c-9"></a>        <span class="n">pprint</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+<div class="code"><pre class="code python"><a id="rest_code_9cb6bf16be5142a4a193525e2fc1076d-1" name="rest_code_9cb6bf16be5142a4a193525e2fc1076d-1" href="#rest_code_9cb6bf16be5142a4a193525e2fc1076d-1"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Alice, Smith'</span><span class="p">,</span>
+<a id="rest_code_9cb6bf16be5142a4a193525e2fc1076d-2" name="rest_code_9cb6bf16be5142a4a193525e2fc1076d-2" href="#rest_code_9cb6bf16be5142a4a193525e2fc1076d-2"></a>    <span class="s1">'notes'</span><span class="p">:</span> <span class="s1">'Customer requested</span><span class="se">\n</span><span class="s1">"leave at front door" option.'</span><span class="p">,</span>
+<a id="rest_code_9cb6bf16be5142a4a193525e2fc1076d-3" name="rest_code_9cb6bf16be5142a4a193525e2fc1076d-3" href="#rest_code_9cb6bf16be5142a4a193525e2fc1076d-3"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'2026-03-15'</span><span class="p">,</span>
+<a id="rest_code_9cb6bf16be5142a4a193525e2fc1076d-4" name="rest_code_9cb6bf16be5142a4a193525e2fc1076d-4" href="#rest_code_9cb6bf16be5142a4a193525e2fc1076d-4"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1001'</span><span class="p">,</span>
+<a id="rest_code_9cb6bf16be5142a4a193525e2fc1076d-5" name="rest_code_9cb6bf16be5142a4a193525e2fc1076d-5" href="#rest_code_9cb6bf16be5142a4a193525e2fc1076d-5"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'Completed'</span><span class="p">,</span>
+<a id="rest_code_9cb6bf16be5142a4a193525e2fc1076d-6" name="rest_code_9cb6bf16be5142a4a193525e2fc1076d-6" href="#rest_code_9cb6bf16be5142a4a193525e2fc1076d-6"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">'1,129.99'</span><span class="p">}</span>
+<a id="rest_code_9cb6bf16be5142a4a193525e2fc1076d-7" name="rest_code_9cb6bf16be5142a4a193525e2fc1076d-7" href="#rest_code_9cb6bf16be5142a4a193525e2fc1076d-7"></a><span class="p">{</span>   <span class="s1">'customer_name'</span><span class="p">:</span> <span class="s1">'Bob, Jones'</span><span class="p">,</span>
+<a id="rest_code_9cb6bf16be5142a4a193525e2fc1076d-8" name="rest_code_9cb6bf16be5142a4a193525e2fc1076d-8" href="#rest_code_9cb6bf16be5142a4a193525e2fc1076d-8"></a>    <span class="s1">'notes'</span><span class="p">:</span> <span class="s1">'Marked as "priority</span><span class="se">\n</span><span class="s1">shipping" by support.'</span><span class="p">,</span>
+<a id="rest_code_9cb6bf16be5142a4a193525e2fc1076d-9" name="rest_code_9cb6bf16be5142a4a193525e2fc1076d-9" href="#rest_code_9cb6bf16be5142a4a193525e2fc1076d-9"></a>    <span class="s1">'order_date'</span><span class="p">:</span> <span class="s1">'2026-03-16'</span><span class="p">,</span>
+<a id="rest_code_9cb6bf16be5142a4a193525e2fc1076d-10" name="rest_code_9cb6bf16be5142a4a193525e2fc1076d-10" href="#rest_code_9cb6bf16be5142a4a193525e2fc1076d-10"></a>    <span class="s1">'order_id'</span><span class="p">:</span> <span class="s1">'1002'</span><span class="p">,</span>
+<a id="rest_code_9cb6bf16be5142a4a193525e2fc1076d-11" name="rest_code_9cb6bf16be5142a4a193525e2fc1076d-11" href="#rest_code_9cb6bf16be5142a4a193525e2fc1076d-11"></a>    <span class="s1">'status'</span><span class="p">:</span> <span class="s1">'Processing'</span><span class="p">,</span>
+<a id="rest_code_9cb6bf16be5142a4a193525e2fc1076d-12" name="rest_code_9cb6bf16be5142a4a193525e2fc1076d-12" href="#rest_code_9cb6bf16be5142a4a193525e2fc1076d-12"></a>    <span class="s1">'total_amount'</span><span class="p">:</span> <span class="s1">'45.50'</span><span class="p">}</span>
+<a id="rest_code_9cb6bf16be5142a4a193525e2fc1076d-13" name="rest_code_9cb6bf16be5142a4a193525e2fc1076d-13" href="#rest_code_9cb6bf16be5142a4a193525e2fc1076d-13"></a><span class="o">...</span>
+</pre></div>
+<p>Disabling quoting introduces significant breaking change, making its ouput incompatible with standard CSV format.
+Even if it is not the default behavior, most modern systems support standard CSV formatting, like using MySQL's <code class="docutils literal">ENCLOSED BY</code> clause to enable double-quote escaping.
+To reduce complexity, when using CSV as data exchange format, developers should consider sticking to an unified standard across data pipeline whenever possible.</p>
+</section><section id="encoding-and-bom"><h2>Encoding and BOM</h2>
+<p>CSV standards do not specify text encoding, and simply assumes writer and reader are using the same codec.
+Developers should be aware of this potential compatibility issue, particularlly when relying on <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#open:~:text=In%20text%20mode%2C%20if%20encoding%20is%20not%20specified%20the%20encoding%20used%20is%20platform%2Ddependent">default text I/O settings</a>
+in the Python runtime. If it is impossible to determine text encoding from serialization protocol, you may need to use third-party solutions like <a class="reference external" href="https://github.com/chardet/chardet">chardet</a> to detect the underlying file encoding.</p>
+<p>Another common issue with UTF encoding arises from attempts to open up CSV files in Microsoft Excel.
+While Excel's data import feature allows user to select encoding codec,
+opening UTF-8 encoded CSV directly requires <a class="reference external" href="https://en.wikipedia.org/wiki/Byte_order_mark">Byte Order Mark (BOM)</a> at the head of file.
+This happens frequently when the source file is generated from a Unix-like operating system, where BOM is often omitted from UTF-8 encoded text files.
+Because UTF-8 has no byte order variations (unlike UTF-16 and UTF-32, which strictly requires BOM to identify <a class="reference external" href="https://en.wikipedia.org/wiki/Endianness">endianness</a>),
+generally it is safe to decode content without header.</p>
+<p>Although one could manually prepending BOM bytes, we can choose <code class="docutils literal"><span class="pre">utf-8-sig</span></code> encoding as a cleaner solution when reading and writing CSV files.
+It guarantees BOM is included in the exported file, and ensures reader will skip BOM header properly if it is present.</p>
+</section><section id="guessing-and-detecting-dialects"><h2>Guessing and Detecting Dialects</h2>
+<p>Internally, Python's <code class="docutils literal">csv</code> module offers three predefined dialects for common use cases.
+These dialects are aliased and can be passed directly to reader's or writer's <code class="docutils literal">dialect</code> parameter:</p>
+<ul class="simple">
+<li><p><code class="docutils literal">csv.excel / "excel"</code>: The default setting. It follows Microsoft Excel's export format, which is fully compliant with RFC CSV standard.</p></li>
+<li><p><code class="docutils literal">csv.excel_tab / <span class="pre">"excel-tab"</span></code>: Similar to <code class="docutils literal">csv.excel</code>, but uses tab character (<code class="docutils literal">"\t"</code>) as delimiter that deals with Tab-Separated Values (TSV) files.</p></li>
+<li><p><code class="docutils literal">csv.unix_dialect / "unix"</code>: Follows UNIX system conventions: Using LF (<code class="docutils literal">"\n"</code>) for line breaks, and double-quoting all field values.</p></li>
+</ul>
+<p>As mentioned earlier, not all CSV datasets adhere to these common dialects.
+Although manually viewing raw text helps quickly identify the general syntax, one would likely to automate this process when ingesting various data sources.
+To solve this, Python provides <code class="docutils literal">csv.Sniffer</code> class to offer format detection utility,
+and popular libraries like <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html#:~:text=sep%3DNone%20detects%20the%20separator%20from%20the%20first%20valid%20row%20of%20the%20file%20with%20Python%E2%80%99s%20builtin%20sniffer%20tool%2C%20csv.Sniffer">Pandas</a>
+also use <code class="docutils literal">csv.Sniffer</code> under the hood when speicial characters are not explicitly provided.</p>
+<p>So, how does the sniffer work? Scanning the whole dataset to determine its own format is rarely a good idea, so typically this is done by looking for patterns from smaller file sample.
+That's why <code class="docutils literal">Sniffer.sniff()</code> method requires user to pass a string of sample text for examination.
+How to sample from the file is totally up to developer, which heavily depends on file size, schema, and data properties.
+We will not cover algorithm internals, but if you are interested, <a class="reference external" href="https://github.com/python/cpython/blob/dbcae904c68b211b13b21b002628bbae27e66587/Lib/csv.py#L278">here</a>
+are details about the pipeline that infers formats using regular expression pattern matching.</p>
+<p>There are also other, and more sophisticated approaches based on real world case studies, such as <a class="reference external" href="https://clevercsv.readthedocs.io/en/latest/index.html">CleverCSV</a>.
+But again, we want to focus on practical usage instead of research papers. We will save it for an advanced topic in the future.</p>
+<p>Column schema detection is another and even broader topic.
+CleverCSV included, popular Python libraries that process tabular data such as Pandas, Polars, and PyArrow use different approaches for data type inference from raw strings.
+Just as we discussed earlier, it usually relies on underlying serialization protocol, and frequently requires human inspection for accuracy.</p>
+</section><section id="null-logic-and-python-object-serialization"><h2>NULL Logic and Python Object Serialization</h2>
+<p>While Python's <code class="docutils literal">csv.reader</code> does not automatically deserialize field values, <code class="docutils literal">csv.writer</code> must serialize
+all non-string objects passed to it. Internally it pass these values to the built-in <code class="docutils literal">str()</code> function to
+convert them into string representations, which finally appear in the exported CSV fields.</p>
+<p>However, there is one notable exception: nulls.</p>
+<p>In Python, stringifying <code class="docutils literal">None</code>, either by calling <code class="docutils literal">str()</code> or using string interpolation syntax (e.g. f-string), results in non-empty string "<code class="docutils literal">None</code>".
+While some protocols prefer other terms like "NULL", these conventions are highly system-specific.
+Moreover, figuring out how to distinguish literal strings from actual null values introduces more headaches.</p>
+<p>Both programming languages and database systems have dedicated symbols for undefined values, but CVS format itself does not define null data type.
+How null values are represented and recognized highly depends on serialization protocol.</p>
+<p>In most Python applications, and especially database client libraries implementing Python's database API (DB-API),
+nulls are transformed into Python <code class="docutils literal">None</code> objects.
+Because of this, plus the fact that both <code class="docutils literal">None</code> and empty string are "falsy" values in Python (evaluated to <code class="docutils literal">False</code> when used in boolean expressions),
+<code class="docutils literal">csv.writer</code> converts <code class="docutils literal">None</code> to an empty string.
+Other libraries may offer customizable behavior on processing null values, for instance, <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html#:~:text=optional%20Additional%20strings%20to%20recognize%20as%20NA/NaN.">reader</a> and <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html#:~:text=Missing%20data%20representation.">writer</a> functions in Pandas.</p>
+</section>
+</div>
+    </div>
+            <ul class="pager">
+<li class="previous">
+                <a href="../data-exchange-csv-003/" rel="prev">← Previous post</a>
+            </li>
+        </ul>
+<div data-title="" id="utterances-thread"></div>
+        <script src="https://utteranc.es/client.js" repo="pykenny/pykenny.github.io" issue-term="title" label="Discussion" theme="gruvbox-dark"></script></article>
+</div>
+                </div>
+                <div id="ftr">
+                </div>
+            </div>
+        </div>
+    </div>
+	<footer><small>Contents © 2026         <a href="mailto:soft.desk9067@fastmail.com">Po-Yu Hsieh</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </small>
+	</footer>
+</body>
+</html>
