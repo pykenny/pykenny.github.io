@@ -187,7 +187,7 @@ li
 	margin: 0px 20px;
 	background: #fbf7f1 url(../img/page.png) repeat-y top left;
 }
-header
+.page-header
 {
     position: relative;
 	height: 248px;
@@ -202,7 +202,7 @@ header
     background: none;
 }
 
-header h1
+.page-header .blog-title
 {
     position: absolute;
     left: 16px;
@@ -212,6 +212,18 @@ header h1
     color: #ffffff;
     letter-spacing: .05em;
     font-size: 3em;
+}
+
+.page-header .blog-description
+{
+    position: absolute;
+    left: 18px;
+    bottom: 8px;
+    font-family: Passion One;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 1.25em;
+    letter-spacing: .05em;
 }
 
 .storypage header h1,
@@ -241,17 +253,6 @@ header h1 a:visited
     color: #505050;
 }
 
-header h2
-{
-    position: absolute;
-    left: 18px;
-    bottom: 8px;
-    font-family: Passion One;
-    font-weight: 400;
-    color: #ffffff;
-    font-size: 1.25em;
-    letter-spacing: .05em;
-}
 nav
 {
     font-size: 20px;
@@ -343,7 +344,8 @@ article {
 }
 
 .post-text .p-name,
-.tagindex header h1
+.tagindex header h1,
+.tagpage header h1
 {
     font-size: 1.5em;
     font-family: Vollkorn;
